@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends 'wwworkout/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Sign Up
+{% endblock %}
+
+{% block style_block %}
+	.sign-in-box {
+		overflow: hidden;
+		background-color: #333;
+	}
+
+	.sign-in-box
+
+{% endblock %}
+
+{% block body_block %}
+	<div class="sign-in-box">
+		<form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+		 {% csrf_token %}
+			
+			{{ user_form.as_p }}
+			{{ profile_form.as_p }}
+			
+				
+		
+		
+		</form>
+	</div>
+{% endblock %}

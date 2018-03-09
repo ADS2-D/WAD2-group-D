@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
 	<title>
     {% block title_block %}
-			- WWWorkout
+			WWWorkout -
 	{% endblock %}
 	</title>
 	<style>
@@ -65,14 +65,18 @@
 			margin-right: 16px;
 			border: none;
 		}
+		{% block style_block %}
+		
+		{% end block %}
+		
 	</style>
 </head>
 <body>
 	
 	<div class="topnav">
   		<a class="active" href="#home">Timeline</a>
-  			<a href="{% url 'profiles' %}">Profile</a>
-  			<a href="{% url 'groups' %}">Groups</a>
+  			<a href="{% url 'user/{{user.username}}' %}">Profile</a>
+  			<a href="{% url 'teams/{{team.teamname}}' %}">Groups</a>
   			<a href="{% url 'leaderboards' %}">Leaderboards</a>
 		<div class="login-container">
 			{% if user.is_authenticated %}
