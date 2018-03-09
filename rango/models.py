@@ -42,10 +42,10 @@ class Workout(models.Model):
 
     # The additional attributes we wish to include.
     workoutid = models.CharField(max_length=30)
-    distance = models.IntField(max_digits=3)
-    reps = models.IntField(max_digits=3)
-    sets = models.IntField(max_digits=3)
-    weights = models.IntField(max_digits=3)
+    distance = models.IntegerField
+    reps = models.IntegerField
+    sets = models.IntegerField
+    weights = models.IntegerField
     cadence = models.DecimalField(max_digits=3, decimal_places=2)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
