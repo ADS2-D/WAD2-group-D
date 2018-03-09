@@ -5,9 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
 
-
-# Create your views here.
-
 def home(request):
     response = render(request, 'wwworkout/index.html')
     return response
@@ -40,11 +37,43 @@ def login(request):
                 return HttpResponseRedirect(reverse('user_redirect'))
 
 
-def user_profile():
+# TODO: implement database access for context dictionaries
+def user_profile(request, username):
     context_dict = None
     return render(request, 'wwworkout/user_profile.html', context_dict)
 
 
-def user_timeline():
+def user_timeline(request, username):
     context_dict = None
     return render(request, 'wwworkout/user_timeline.html', context_dict)
+
+
+def user_groups(request, username):
+    context_dict = None
+    return render(request, 'wwworkout/user_groups.html', context_dict)
+
+
+def group_profile(request, group_id):
+    context_dict = None
+    return render(request, 'wwworkout/group_profile.html', context_dict)
+
+
+def group_leaderboards_index(request, group_id):
+    context_dict = None
+    return render(request, 'wwworkout/group_leaderboards_index.html', context_dict)
+
+
+def group_leaderboards_workout(request, group_id):
+    context_dict = None
+    return render(request, 'wwworkout/group_leaderboards_workout.html', context_dict)
+
+
+def group_member_list(request, group_id):
+    context_dict = None
+    return render(request, 'wwworkout/group_member_list.html', context_dict)
+
+
+def add_group(request):
+    # TODO: use forms (like with category creation in tango_with_django) and models to create new groups
+    context_dict = None
+    return render(request, 'wwworkout/add_group.html', context_dict)
