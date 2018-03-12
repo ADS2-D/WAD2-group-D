@@ -3,15 +3,16 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from rango.forms import UserForm, UserProfileForm, TeamForm
 
 
 def home(request):
-    response = render(request, 'wwworkout/index.html')
+    response = render(request, 'rango/index.html')
     return response
 
 
 def about(request):
-    return render(request, 'wwworkout/about.html')
+    return render(request, 'rango/about.html')
 
 
 def user_redirect(request):
@@ -38,48 +39,70 @@ def user_login(request):
 
 
 def user_register(request):
-    register = False
+    registered = False
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
+        profile_form = UserProfileForm(data=request.POST)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+
+            profile = profile_form.save(commit=True)
+            profile.user = user
+
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+
+            profile.save()
+            registered = True
+        else:
+            print(user_form.errors, profile_form.errors)
+    else:
+        user_form = UserForm()
+        profile_form = UserProfileForm()
+        
+    return render(request, 'rango/register.html')
 
 
 # TODO: implement database access for context dictionaries
 def user_profile(request, username):
     context_dict = None
-    return render(request, 'wwworkout/user_profile.html', context_dict)
+    return render(request, 'rango/user_profile.html', context_dict)
 
 
 def user_timeline(request, username):
     context_dict = None
-    return render(request, 'wwworkout/user_timeline.html', context_dict)
+    return render(request, 'rango/user_timeline.html', context_dict)
 
 
 def user_groups(request, username):
     context_dict = None
-    return render(request, 'wwworkout/user_groups.html', context_dict)
+    return render(request, 'rango/user_groups.html', context_dict)
 
 
 def group_profile(request, group_id):
     context_dict = None
-    return render(request, 'wwworkout/group_profile.html', context_dict)
+    return render(request, 'rango/group_profile.html', context_dict)
 
 
 def group_leaderboards_index(request, group_id):
     context_dict = None
-    return render(request, 'wwworkout/group_leaderboards_index.html', context_dict)
+    return render(request, 'rango/group_leaderboards_index.html', context_dict)
 
 
 def group_leaderboards_workout(request, group_id):
     context_dict = None
-    return render(request, 'wwworkout/group_leaderboards_workout.html', context_dict)
+    return render(request, 'rango/group_leaderboards_workout.html', context_dict)
 
 
 def group_member_list(request, group_id):
     context_dict = None
-    return render(request, 'wwworkout/group_member_list.html', context_dict)
+    return render(request, 'rango/group_member_list.html', context_dict)
 
 
 def add_group(request):
     # TODO: use forms (like with category creation in tango_with_django) and models to create new groups
     context_dict = None
-    return render(request, 'wwworkout/add_group.html', context_dict)
+    return render(request, 'rango/add_group.html', context_dict)

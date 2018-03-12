@@ -17,3 +17,9 @@ class UserProfileForm(forms.ModelForm):
         fields = ('picture', )
 
 
+class TeamForm(forms.ModelForm):
+    class Meta:
+        model = Team
+        fields = ('name', 'teamid', 'picture')
+
+
