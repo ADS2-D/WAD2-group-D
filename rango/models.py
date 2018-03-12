@@ -6,32 +6,29 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class UserProfile(models.Model):
-    # This line is required. Links UserProfile to a User model instance.
+    # Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
 
-    # The additional attributes we wish to include.
-    userid = models.CharField(max_length=30)
+    # additional attributes
+    # userid = models.CharField(max_length=30)
     picture = models.ImageField(upload_to='profile_images', blank=True)
-    owner = models.BooleanField
-    distancepoints = models.DecimalField(max_digits=3, decimal_places=2)
-    weightpoints = models.DecimalField(max_digits=3, decimal_places=2)
+    # owner = models.BooleanField
+    distancepoints = models.DecimalField(max_digits=8, decimal_places=2)
+    weightpoints = models.DecimalField(max_digits=8, decimal_places=2)
 
-    # Override the __unicode__() method to return out something meaningful!
-    # Remember if you use Python 2.7.x, define __unicode__ too!
     def __str__(self):
         return self.user.username
 
 
-class Teams(models.Model):
-    # This line is required. Links UserProfile to a User model instance.
-    teams = models.ManyToManyField(User)
+class Team(models.Model):
+    # Links Teams and Users model instance.
+    user = models.ManyToManyField(User)
 
-    # The additional attributes we wish to include.
+    # additional attributes
     teamid = models.CharField(max_length=30)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    name = models.CharField(max_length=30)
+    picture = models.ImageField(upload_to='team_images', blank=True)
 
-    # Override the __unicode__() method to return out something meaningful!
-    # Remember if you use Python 2.7.x, define __unicode__ too!
     def __str__(self):
         return self.teamid
 

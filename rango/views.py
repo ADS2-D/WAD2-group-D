@@ -23,7 +23,7 @@ def user_redirect(request):
         return HttpResponseRedirect(reverse('home'))
 
 
-def login(request):
+def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -35,6 +35,12 @@ def login(request):
                 login(request, user)
                 # TODO: redirect user to their own profile
                 return HttpResponseRedirect(reverse('user_redirect'))
+
+
+def user_register(request):
+    register = False
+    if request.method == 'POST':
+        user_form = UserForm(data=request.POST)
 
 
 # TODO: implement database access for context dictionaries
