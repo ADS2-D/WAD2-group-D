@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from rango.forms import UserForm, UserProfileForm, TeamForm
@@ -36,6 +36,13 @@ def user_login(request):
                 login(request, user)
                 # TODO: redirect user to their own profile
                 return HttpResponseRedirect(reverse('user_redirect'))
+            else:
+                return HttpResponse('Your WWWorkout account has been disabled.')
+        else:
+            print('Invalid login details: {0}, {1}'.format(username, password))
+            return render(request, 'rango/login.html', {'invalid_login': 'Your login details are invalid.'})
+    else:
+        return render(request, 'rango/login.html', {'invalid_login': ''})
 
 
 def user_register(request):
@@ -64,6 +71,11 @@ def user_register(request):
         profile_form = UserProfileForm()
         
     return render(request, 'rango/register.html')
+
+
+def user_logoout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
 
 
 # TODO: implement database access for context dictionaries
