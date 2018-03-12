@@ -67,7 +67,7 @@
 		}
 		{% block style_block %}
 		
-		{% end block %}
+		{% endblock %}
 		
 	</style>
 </head>
@@ -75,8 +75,8 @@
 	
 	<div class="topnav">
   		<a class="active" href="#home">Timeline</a>
-  			<a href="{% url 'user/{{user.username}}' %}">Profile</a>
-  			<a href="{% url 'teams/{{team.teamname}}' %}">Groups</a>
+  			<a href="{% url 'user/{{ user.username }}' %}">Profile</a>
+  			<a href="{% url 'teams/{{ team.teamname }}' %}">Groups</a>
   			<a href="{% url 'leaderboards' %}">Leaderboards</a>
 		<div class="login-container">
 			{% if user.is_authenticated %}
