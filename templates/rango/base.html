@@ -48,6 +48,15 @@
 			font-size: 17px;
 		}
 		
+		.topnav input[type=password] {
+			float: right;
+			padding: 6px;
+			border: none;
+			margin-top: 8px;
+			margin-right: 16px;
+			font-size: 17px;
+		
+		}
 		.topnav .login-container button {
 			float: right;
 			padding: 6px;
@@ -73,31 +82,36 @@
 </head>
 <body>
 
+	{% if user.is_authenticated %}
 	<div class="topnav">
   		<a class="active" href="#home">Timeline</a>
-  			<a href="{% url 'user/{{ user.username }}' %}">Profile</a>
-  			<a href="{% url 'teams/{{ team.teamname }}' %}">Groups</a>
-  			<a href="{% url 'leaderboards' %}">Leaderboards</a>
+  			<a href="{% url 'user_profile' user.username %}">Profile</a>
+  			<a href="{% url 'user_groups' user.username %}">Groups</a> 
+  			<a href="{% url 'group_leaderboards_index' user.username %}">Leaderboards</a>
 		<div class="login-container">
-			{% if user.is_authenticated %}
-				<a href="{% url 'profiles' %}">{{ user.username }}</a>
-				<button type="logout">Logout</button>
-				<img src+"profile_image.jpg" alt="profile image" width="20" height="20">
-				
-			{% else %}
-				<button type="submit">Log in</button>
-				<input type="text" placeholder="password">
-				<input type="text" placeholder="username">
-			{% endif %}
+			<a href="{% url 'user_profile' user.username %}">{{ user.username }}</a>
+			<button type="logout">Logout</button>
+			<img src+"profile_image.jpg" alt="profile image" width="20" height="20">
+		</div>
+	</div>
+	{% else %}
+	<div class="topnav">
+		<div class="login-container">
+			<form id="login_form" method="post" action="{% url 'home' %}">
+			{% csrf_token %}
+			<button type="submit">Log in</button>
+			<input type="text" placeholder="username">
+			<input type="password" placeholder="password">
+			
+			<input type="submit" value="submit" />
+			</form>
 		</div>
 	</div>
 	
 	
-	
-	
-	
-	
+	{% endif %}
 	{% block body_block %}
+	
 	{% endblock %} 
 </body>
 </html>

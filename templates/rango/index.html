@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-
 {% extends 'rango/base.html' %}
 {% load staticfiles %}
 
+{% block title_block %}
+	Home
+{% endblock %}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>WWWorkout</title>
-</head>
-<body>
+{% block style_block %}
 
-<p><h1>
-    THIS IS THE INDEX PAGE OF THE DJANGO APPLICATION
-</h1></p>
+{% endblock %}
 
-</body>
-</html>
+{% block body_block %}
+
+
+
+
+	
+{% if user.is_authenticated %}
+	AUTHENTICATED
+
+{% else %}
+	NOT AUTHENTICATED
+
+
+{% endif %}
+	
+
+
+	
+{% endblock %}

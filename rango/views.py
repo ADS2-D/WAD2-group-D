@@ -73,7 +73,7 @@ def user_register(request):
     return render(request, 'rango/register.html')
 
 
-def user_logoout(request):
+def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
 
@@ -81,7 +81,7 @@ def user_logoout(request):
 # TODO: implement database access for context dictionaries
 def user_profile(request, username):
     context_dict = None
-    return render(request, 'rango/user_profile.html', context_dict)
+    return render(request, 'rango/profile.html', context_dict)
 
 
 def user_timeline(request, username):

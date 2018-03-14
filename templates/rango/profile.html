@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	{{ user.username }}'s Profile
+{% endblock %}
+
+{% block style_block %}
+
+	.profile_left {
+		overflow: hidden;
+		align: left;
+		background: #333;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		max-width: 300px;
+		margin: auto;
+		text-align: center;
+		font-family: arial;
+	}
+
+	.profile_left profile_card {
+		
+	}
+
+	.profile_left title {
+		color: grey;
+		font-size: 18px;
+	}
+	
+	.vertical_line {
+		height: 150px;
+		width: 1px;
+		background: #000;
+
+	}
+{% endblock %}
+
+{% block body_block %}
+	<div class="profile_left" align="left">
+		<div class="profile_card">
+			<img src="profile_picture.jpg" alt="{{ user.username }}" style="width:30%">
+			<h1>{{ user.username }}</h1>
+			<p class="location">{{ user.location }}</p>
+			<p class="join-date">Member since {{ user.joindate }}</p>
+			<div class="points-display">
+				
+				
+				
+			</div>
+		</div>
+	</div>
+	<div class="vertical_line"></div>
+{% endblock %}
