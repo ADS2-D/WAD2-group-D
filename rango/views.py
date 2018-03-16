@@ -20,6 +20,7 @@ def user_redirect(request):
     # TODO: redirect to user's profile at /user/<username>
     if request.user.is_authenticated():
         username = request.user.username
+        return HttpResponseRedirect(reverse('home'))
         # redirect here
     else:
         return HttpResponseRedirect(reverse('home'))
