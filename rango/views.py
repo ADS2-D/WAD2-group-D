@@ -15,6 +15,7 @@ def about(request):
     return render(request, 'rango/about.html')
 
 
+@login_required
 def user_redirect(request):
     # TODO: redirect to user's profile at /user/<username>
     if request.user.is_authenticated():
@@ -69,7 +70,7 @@ def user_register(request):
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
-        
+
     return render(request, 'rango/register.html')
 
 
@@ -118,3 +119,13 @@ def add_group(request):
     # TODO: use forms (like with category creation in tango_with_django) and models to create new groups
     context_dict = None
     return render(request, 'rango/add_group.html', context_dict)
+
+
+def leaderboards_index(request):
+    context_dict = None
+    return render(request, 'rango/leaderboards_index.html', context_dict)
+
+
+def leaderboards_single(request, workout_id):
+    context_dict = None
+    return render(request, 'rango/leaderboard.html', context_dict)

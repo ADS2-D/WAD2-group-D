@@ -4,6 +4,8 @@ from rango import views
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^register/$', views.user_register, name="user_register"),
+    url(r'^login/$', views.user_login, name="user_login"),
+    url(r'^logout/$', views.user_logout, name="user_logout"),
 
     url(r'^user/$', views.user_redirect, name='user_redirect'),
     url(r'^user/(?P<username>[\w\-]+)/$', views.user_profile, name='user_profile'),
@@ -16,7 +18,6 @@ urlpatterns = [
     url(r'^group/(?P<group_id>[\w\-]+)/member_list/$', views.group_member_list, name='group_member_list'),
     url(r'^add_group/', views.add_group, name='add_group'),
 
-    #url(r'^add_category/$', views.add_category, name='add_category'),
-    #url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.show_category, name='show_category'),
-    #url(r'^category/(?P<category_name_slug>[\w\-]+)/add_page/$', views.add_page, name='add_page'),
+    url(r'^leaderboards/$', views.leaderboards_index, name="leaderboards_index"),
+    url(r'^leaderboards/(?P<workout_id>[\w\-]+)/$', views.leaderboards_single, name="leaderboards_single"),
 ]
