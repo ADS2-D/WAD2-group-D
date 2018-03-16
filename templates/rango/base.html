@@ -99,11 +99,16 @@
 		<div class="login-container">
 			<form id="login_form" method="post" action="{% url 'home' %}">
 			{% csrf_token %}
+			<button type="submit">Register</button>
 			<button type="submit">Log in</button>
-			<input type="text" placeholder="username">
 			<input type="password" placeholder="password">
+			<input type="text" placeholder="username">
 			
-			<input type="submit" value="submit" />
+			<a href="#about">About</a>
+			<a href="#profile">Profile</a>
+			<a href="#groups">Groups</a>
+			<a href="#timeline">Timeline</a>
+			<a href="#leaderboards">Leaderboards</a>
 			</form>
 		</div>
 	</div>
@@ -111,7 +116,7 @@
 	
 	{% endif %}
 	{% block body_block %}
-	
+
 	{% endblock %} 
 </body>
 </html>
