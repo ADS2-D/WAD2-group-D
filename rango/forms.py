@@ -23,9 +23,9 @@ class TeamForm(forms.ModelForm):
         fields = ('name', 'teamid', 'picture')
 
 
-class WorkoutForm(forms.ModelForm):
-    class Meta:
-        model = Workout
-        fields = ('type', 'workoutid', 'distance', 'sets', 'weights', 'reps', 'picture')
+#class WorkoutForm(forms.ModelForm):
+#    class Meta:
+#        model = Workout
+#        fields = ('workoutid', 'distance', 'reps', 'sets', 'weights', 'cadence', 'picture',)
 
 
