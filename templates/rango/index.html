@@ -11,21 +11,10 @@
 {% endblock %}
 
 {% block body_block %}
-
-
-
-
-	
-{% if user.is_authenticated %}
-	AUTHENTICATED
-
-{% else %}
-	NOT AUTHENTICATED
-
-
-{% endif %}
-	
-
-
-	
+	{% if user.is_authenticated %}
+		AUTHENTICATED
+	{% else %}
+		NOT AUTHENTICATED
+		<li><a href="{% url 'user_register' %}">Register</a></li>
+	{% endif %}	
 {% endblock %}
