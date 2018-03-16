@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from rango.models import UserProfile, Team
+from rango.models import UserProfile, Team, Workout
 
 
 class UserForm(forms.ModelForm):
@@ -21,5 +21,11 @@ class TeamForm(forms.ModelForm):
     class Meta:
         model = Team
         fields = ('name', 'teamid', 'picture')
+
+
+class WorkoutForm(forms.ModelForm):
+    class Meta:
+        model = Workout
+        fields = ('type', 'workoutid', 'distance', 'sets', 'weights', 'reps', 'picture')
 
 

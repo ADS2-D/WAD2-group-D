@@ -23,8 +23,6 @@ from django.conf.urls.static import static
 urlpatterns = [
                   url(r'^$', views.home, name='home'),
                   url(r'^about/', views.about, name='about'),
-                  url(r'^login/', views.user_login, name='login'),
-                  url(r'^logout/', views.logout, name='logout'),
                   url(r'^workout/', include('rango.urls')),
                   url(r'^admin/', admin.site.urls),
               ] + static(settings.MEDIA_DIR, document_root=settings.MEDIA_ROOT)
