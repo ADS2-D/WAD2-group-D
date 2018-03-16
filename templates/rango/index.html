@@ -16,5 +16,7 @@
 	{% else %}
 		NOT AUTHENTICATED
 		<li><a href="{% url 'user_register' %}">Register</a></li>
+		<li><a href="{% url 'user_login' %}">Log in</a></li>
+		
 	{% endif %}	
 {% endblock %}
