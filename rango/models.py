@@ -29,8 +29,12 @@ class Team(models.Model):
     name = models.CharField(max_length=30)
     picture = models.ImageField(upload_to='team_images', blank=True)
 
+    def save(self, *args, **kwargs):
+        self.teamid = slugify(self.name)
+        super(Team, self).save(*args, **kwargs)
+
     def __str__(self):
-        return self.teamid
+        return self.name
 
 
 class Workout(models.Model):
@@ -46,7 +50,6 @@ class Workout(models.Model):
     cadence = models.DecimalField(max_digits=3, decimal_places=2)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
-    # Override the __unicode__() method to return out something meaningful!
-    # Remember if you use Python 2.7.x, define __unicode__ too!
+
     def __str__(self):
         return self.workoutid

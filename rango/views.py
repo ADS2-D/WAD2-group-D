@@ -74,6 +74,7 @@ def user_register(request):
     return render(request, 'rango/register.html')
 
 
+@login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
