@@ -40,7 +40,7 @@
   			color: white;
 		}
 		.topnav input[type=text] {
-			float: right;
+			float: left;
 			padding: 6px;
 			border: none;
 			margin-top: 8px;
@@ -57,6 +57,12 @@
 			font-size: 17px;
 		
 		}
+		
+		.topnav .login-container {
+			float: right;
+			align-content: left;
+		}
+		
 		.topnav .login-container button {
 			float: right;
 			padding: 6px;
@@ -90,7 +96,7 @@
   			<a href="{% url 'group_leaderboards_index' user.username %}">Leaderboards</a>
 		<div class="login-container">
 			<a href="{% url 'user_profile' user.username %}">{{ user.username }}</a>
-			<button type="logout">Logout</button>
+			<li><a href="{% url 'logout' %}">Logout</a></li>
 			<img src+"profile_image.jpg" alt="profile image" width="20" height="20">
 		</div>
 	</div>
@@ -101,14 +107,22 @@
 			{% csrf_token %}
 			<button type="submit">Register</button>
 			<button type="submit">Log in</button>
+<<<<<<< HEAD
+			<strong>{{invalid_login}}</strong>
+			<input type="text" placeholder="username">
+=======
+>>>>>>> b18e9e344e5b6a1d0331ba0561f4236daf4970c0
 			<input type="password" placeholder="password">
 			<input type="text" placeholder="username">
 			
+<<<<<<< HEAD
+=======
 			<a href="#about">About</a>
 			<a href="#profile">Profile</a>
 			<a href="#groups">Groups</a>
 			<a href="#timeline">Timeline</a>
 			<a href="#leaderboards">Leaderboards</a>
+>>>>>>> b18e9e344e5b6a1d0331ba0561f4236daf4970c0
 			</form>
 		</div>
 	</div>
