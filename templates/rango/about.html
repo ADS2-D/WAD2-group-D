@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	Home
+	About
 {% endblock %}
 
 {% block style_block %}
@@ -12,9 +12,9 @@
 
 {% block body_block %}
 	{% if user.is_authenticated %}
-		AUTHENTICATED - This is the Home page
+		AUTHENTICATED - This is the About page
 	{% else %}
-		NOT AUTHENTICATED - This is the Home page
+		NOT AUTHENTICATED - This is the About page
 		<li><a href="{% url 'user_register' %}">Register</a></li>
 		<li><a href="{% url 'user_login' %}">Log in</a></li>
 		

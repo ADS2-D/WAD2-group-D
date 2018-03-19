@@ -40,7 +40,13 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
-
+		
+class WorkoutType(models.Model):
+    name = models.CharField
+    cardio = models.NullBooleanField
+    weights = models.NullBooleanField	
+		
+		
 class Workout(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.ForeignKey(User)
@@ -60,9 +66,3 @@ class Workout(models.Model):
 
     def __str__(self):
         return self.workoutid
-
-
-class WorkoutType(models.Model):
-    name = models.CharField
-    cardio = models.NullBooleanField
-    weights = models.NullBooleanField

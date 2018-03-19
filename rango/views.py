@@ -11,7 +11,6 @@ def home(request):
     response = render(request, 'rango/index.html')
     return response
 
-
 def about(request):
     return render(request, 'rango/about.html')
 
