@@ -2,21 +2,121 @@
 {% extends 'rango/base.html' %}
 {% load staticfiles %}
 
-{% block title_block %}
-	About
-{% endblock %}
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+	{% block title_block %}
+		About
+	{% endblock %}
+	</title>
+	
+	{% block style_block %}
+	<style>	
+		html {
+			box-sizing: border-box;
+		}
 
-{% block style_block %}
+		*, *:before, *:after {
+			box-sizing: inherit;
+		}
+		
+		.column {
+			float: left;
+			width: 23.8%;
+			margin-bottom: 16px;
+			padding: 0 8px;
+		}
 
-{% endblock %}
+		@media screen and (max-width: 650px) {
+			.column {
+				width: 100%;
+				display: block;
+			}
+		}
+
+		.card {
+			box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.2);
+		}
+
+		.container {
+			padding: 0 16px;
+		}
+
+		.container::after, .row::after {
+			content: "";
+			clear: both;
+			display: table;
+		}
+
+		.title {
+			color: blue;
+		}			
+	</style>
+	{% endblock %}
+</head>
 
 {% block body_block %}
-	{% if user.is_authenticated %}
-		AUTHENTICATED - This is the About page
-	{% else %}
-		NOT AUTHENTICATED - This is the About page
-		<li><a href="{% url 'user_register' %}">Register</a></li>
-		<li><a href="{% url 'user_login' %}">Log in</a></li>
+<body>
+	<h2>Write about WWWorkout under</h2>
+	<li>Users can join groups to compete against their friends in terms of working out</li>
+	<li>They add workouts which show up on their profiles and the groups they’re in</li>
+	<li>Leaderboards for each group, groups and users</li>
+	<li>Ability to follow/unfollow other users</li>
+	<br>
+	
+	<h2>Meet The Team</h2>	
+	<div class="row">
+		<div class="column">
+			<div class="card">
+				<img src="{{ MEDIA_URL }}person1.jpg" alt="Member#1">
+					<div class="container">
+						<h3>Name #1</h3>
+						<p class="title">Whatever</p>
+						<p>Some text that describes me lorem ipsum ipsum lorem.</p>
+						<p>guid@student.gla.ac.uk</p>
+					</div>
+			</div>
+		</div>
+
+		<div class="column">
+			<div class="card">
+				<img src="{{ MEDIA_URL }}person2.jpg" alt="Member#2">
+				<div class="container">
+					<h3>Name #2</h3>
+					<p class="title">Whatever</p>
+					<p>Some text that describes me lorem ipsum ipsum lorem.</p>
+					<p>guid@student.gla.ac.uk</p>
+				</div>
+			</div>
+		</div>
 		
-	{% endif %}	
+		<div class="column">
+			<div class="card">
+				<img src="{{ MEDIA_URL }}person3.jpg" alt="Member#3">
+				<div class="container">
+					<h3>Name #3</h3>
+					<p class="title">Whatever</p>
+					<p>Some text that describes me lorem ipsum ipsum lorem.</p>
+					<p>guid@student.gla.ac.uk</p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="column">
+			<div class="card">
+				<img src="{{ MEDIA_URL }}person4.jpg" alt="Member#4">
+				<div class="container">
+					<h3>Name #4</h3>
+					<p class="title">Whatever</p>
+					<p>Some text that describes me lorem ipsum ipsum lorem.</p>
+					<p>guid@student.gla.ac.uk</p>
+				</div>
+			</div>
+		</div>		
+	</div>
+
+</body>
+</html>
+
 {% endblock %}

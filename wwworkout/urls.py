@@ -25,4 +25,4 @@ urlpatterns = [
                   url(r'^about/', views.about, name='about'),
                   url(r'^workout/', include('rango.urls')),
                   url(r'^admin/', admin.site.urls),
-              ] + static(settings.MEDIA_DIR, document_root=settings.MEDIA_ROOT)
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

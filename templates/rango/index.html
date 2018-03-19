@@ -16,7 +16,7 @@
 	{% else %}
 		NOT AUTHENTICATED - This is the Home page
 		<li><a href="{% url 'user_register' %}">Register</a></li>
-		<li><a href="{% url 'user_login' %}">Log in</a></li>
+		<li><a href="{% url 'user_login' %}">Log in</a></li>		
+	{% endif %}
 		
-	{% endif %}	
 {% endblock %}
