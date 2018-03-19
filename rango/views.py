@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from rango.forms import UserForm, UserProfileForm, TeamForm
+from rango.models import User, UserProfile, Workout
 
 
 def home(request):
@@ -83,7 +84,17 @@ def user_logout(request):
 
 # TODO: implement database access for context dictionaries
 def user_profile(request, username):
-    context_dict = None
+    context_dict = {}
+
+    try:
+        user = User.objects.filter(username=username)
+        userProfile = UserProfile.objects.filter(user=user)
+        context_dict['workouts'] = Workout.objects.filter(user=user).order_by('-date')[:-5]
+        context_dict['user_profile'] = userProfile
+    except User.DoesNotExist:
+        context_dict['workouts'] = None
+        context_dict['user_profile'] = None
+
     return render(request, 'rango/profile.html', context_dict)
 
 
