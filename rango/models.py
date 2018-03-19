@@ -3,6 +3,7 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 import string
 import random
+import uuid
 from datetime import datetime
 
 
@@ -46,7 +47,7 @@ class Workout(models.Model):
     workoutType = models.ForeignKey(WorkoutType)
 
     # The additional attributes we wish to include.
-    workoutid = models.CharField(max_length=12)
+    workoutid = models.CharField(max_length=12, unique=True, default=uuid.uuid4())
     picture = models.ImageField(upload_to='profile_images', blank=True)
     date = models.DateTimeField(auto_now_add=True, blank=True)
 
@@ -56,12 +57,6 @@ class Workout(models.Model):
 
     distance = models.IntegerField
     cadence = models.DecimalField(max_digits=3, decimal_places=2)
-
-    def save(self, *args, **kwargs):
-        # creates a random string of 12 characters
-        self.workoutid = ''.join(
-            random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(12))
-        super(Workout, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.workoutid

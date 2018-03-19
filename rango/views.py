@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from rango.forms import UserForm, UserProfileForm, TeamForm
-from rango.models import User, UserProfile, Workout
+from rango.models import User, UserProfile, Workout, Team
 
 
 def home(request):
@@ -91,15 +91,17 @@ def user_profile(request, username):
         userProfile = UserProfile.objects.filter(user=user)
         context_dict['workouts'] = Workout.objects.filter(user=user).order_by('-date')[:-5]
         context_dict['user_profile'] = userProfile
+        context_dict['team_number'] = Team.objects.filter(user=user).count()
     except User.DoesNotExist:
         context_dict['workouts'] = None
         context_dict['user_profile'] = None
+        context_dict['team_number'] = None
 
     return render(request, 'rango/profile.html', context_dict)
 
 
 def user_timeline(request, username):
-    context_dict = None
+    context_dict = {}
     return render(request, 'rango/user_timeline.html', context_dict)
 
 
@@ -132,6 +134,12 @@ def add_group(request):
     # TODO: use forms (like with category creation in tango_with_django) and models to create new groups
     context_dict = None
     return render(request, 'rango/add_group.html', context_dict)
+
+
+@login_required
+def add_workout(request):
+    context_dict = None
+    return render(request, 'rango/add_workout.html', context_dict)
 
 
 def leaderboards_index(request):
