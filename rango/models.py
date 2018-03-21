@@ -23,7 +23,7 @@ class UserProfile(models.Model):
 
 class Team(models.Model):
     # Links Teams and Users model instance.
-    user = models.ManyToManyField(User)
+    user = models.ManyToManyField(UserProfile)
 
     # additional attributes
     team_id = models.CharField(max_length=30)

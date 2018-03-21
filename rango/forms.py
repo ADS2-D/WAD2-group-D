@@ -14,15 +14,20 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('picture', )
+        fields = ('picture',)
 
 
 class TeamForm(forms.ModelForm):
+    name = forms.CharField(max_length=128, help_text="Add the name for your new team")
+    team_id = forms.CharField(widget=forms.HiddenInput())
+
     class Meta:
         model = Team
         fields = ('name', 'teamid', 'picture')
 
-#class WorkoutForm(forms.ModelForm):
-#    class Meta:
-#        model = Workout
-#        fields = ('workoutid', 'distance', 'reps', 'sets', 'weights', 'cadence', 'picture',)
+
+class WorkoutForm(forms.ModelForm):
+
+    class Meta:
+        model = Workout
+        fields = ('workoutid', 'distance', 'reps', 'sets', 'weights', 'cadence',)

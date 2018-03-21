@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from rango.forms import UserForm, UserProfileForm, TeamForm
+from rango.forms import UserForm, UserProfileForm, TeamForm, WorkoutForm
 from rango.models import User, UserProfile, Workout, Team
 
 
@@ -161,7 +161,7 @@ def team_member_list(request, team_id):
     context_dict = None
 
     try:
-        team = Team.objects.filter(team_id=team_id)
+        team = Team.objects.get(team_id=team_id)
         context_dict['users'] = team.user.all()
     except Team.DoesNotExist:
         context_dict['users'] = None
@@ -172,18 +172,58 @@ def team_member_list(request, team_id):
 @login_required
 def add_team(request):
     # TODO: use forms (like with category creation in tango_with_django) and models to create new groups
-    context_dict = None
-    return render(request, 'rango/add_team.html', context_dict)
+    form = TeamForm()
+
+    if request.method == 'POST':
+        form = TeamForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return user_redirect(request)
+        else:
+            print(form.errors)
+
+    return render(request, 'rango/add_team.html', {'form': form})
 
 
 @login_required
-def add_workout(request):
-    context_dict = None
+def add_workout(request, username):
+    context_dict = {}
+    form = WorkoutForm()
+
+    try:
+        user = User.objects.get(username=username)
+        if request.user != user:
+            return user_redirect(request)
+    except User.DoesNotExist:
+        user = None
+
+    if request.method == 'POST':
+        form = WorkoutForm(request.POST)
+        if form.is_valid():
+            if user:
+                workout = form.save(commit=False)
+                workout.user = user
+                workout.save()
+            return user_redirect(request)
+        else:
+            print(form.errors)
+
+    context_dict = {'form': form}
+
     return render(request, 'rango/add_workout.html', context_dict)
 
 
 def leaderboards_index(request):
-    context_dict = None
+    context_dict = {}
+
+    try:
+        context_dict['cardio_users'] = UserProfile.objects.all().order_by('-cardiopoints')
+        context_dict['weights_users'] = UserProfile.objects.all().order_by('-weightpoints')
+    except UserProfile.DoesNotExist:
+        context_dict['cardio_users'] = None
+        context_dict['weights_users'] = None
+
     return render(request, 'rango/leaderboards_index.html', context_dict)
 
 
