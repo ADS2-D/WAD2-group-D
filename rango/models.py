@@ -50,16 +50,16 @@ class Workout(models.Model):
     workoutType = models.ForeignKey(WorkoutType)
 
     # The additional attributes we wish to include.
-    workoutid = models.CharField(max_length=12, unique=True, default=uuid.uuid4())
+    workout_id = models.CharField(max_length=12, unique=True, default=uuid.uuid4())
     picture = models.ImageField(upload_to='profile_images', blank=True)
     date = models.DateTimeField(auto_now_add=True, blank=True)
 
-    reps = models.IntegerField
-    sets = models.IntegerField
-    weights = models.IntegerField
+    reps = models.IntegerField(default=0)
+    sets = models.IntegerField(default=0)
+    weights = models.IntegerField(default=0)
     weight_points = models.IntegerField
 
-    distance = models.IntegerField
+    distance = models.IntegerField(default=0)
     cadence = models.DecimalField(max_digits=3, decimal_places=2)
     cardio_points = models.IntegerField
 

@@ -97,8 +97,8 @@
 		    <a href="{% url 'home' %}">Home</a>
 			<a href="{% url 'about' %}">About</a>
   			<a href="{% url 'user_profile' user.username %}">Profile</a>
-  			<a href="{% url 'user_groups' user.username %}">Groups</a> 
-  			<a href="{% url 'group_leaderboards_index' user.username %}">Leaderboards</a>
+  			<a href="{% url 'user_teams' user.username %}">Groups</a> 
+  			<a href="{% url 'team_leaderboards_index' user.username %}">Leaderboards</a>
 		<div class="login-container">
 			<a href="{% url 'user_profile' user.username %}">{{ user.username }}</a>
 			<li><a href="{% url 'user_logout' %}">Logout</a></li>
