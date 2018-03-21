@@ -23,7 +23,7 @@ class UserProfile(models.Model):
 
 class Team(models.Model):
     # Links Teams and Users model instance.
-    user = models.ManyToManyField(UserProfile)
+    users = models.ManyToManyField(User)
 
     # additional attributes
     team_id = models.CharField(max_length=30)
@@ -31,7 +31,7 @@ class Team(models.Model):
     picture = models.ImageField(upload_to='team_images', blank=True)
 
     def save(self, *args, **kwargs):
-        self.teamid = slugify(self.name)
+        self.team_id = slugify(self.name)
         super(Team, self).save(*args, **kwargs)
 
     def __str__(self):

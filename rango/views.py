@@ -48,7 +48,7 @@ def user_login(request):
         return render(request, 'rango/login.html', {'invalid_login': ''})
 
 
-def user_register(request):
+def register(request):
     registered = False
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
@@ -87,10 +87,10 @@ def user_profile(request, username):
     context_dict = {}
 
     try:
-        user = User.objects.filter(username=username)
-        context_dict['workouts'] = Workout.objects.filter(user=user).order_by('-date')[:-5]
-        context_dict['user_profile'] = UserProfile.objects.filter(user=user)
-        context_dict['team_number'] = Team.objects.filter(user=user).count()
+        profile_user = User.objects.filter(username=username)
+        context_dict['workouts'] = Workout.objects.filter(user=profile_user).order_by('-date').reverse()
+        context_dict['user_profile'] = UserProfile.objects.filter(user=profile_user)
+        context_dict['teams'] = Team.objects.filter(users=profile_user)
     except User.DoesNotExist:
         context_dict['workouts'] = None
         context_dict['user_profile'] = None
