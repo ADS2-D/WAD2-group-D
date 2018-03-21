@@ -78,9 +78,10 @@
 		
 		.topnav .login-container img {
 			float: right;
-			padding: 6px;
-			margin-top: 8px;
-			margin-right: 16px;
+			padding: 4px;
+			margin-top: 4px;
+			margin-right: 4px;
+			margin-bottom: 4px;
 			border: none;
 		}		
 		
@@ -100,9 +101,9 @@
   			<a href="{% url 'user_teams' user.username %}">Teams</a> 
   			<a href="{% url 'team_leaderboards_index' user.username %}">Leaderboards</a>
 		<div class="login-container">
-			<a href="{% url 'user_profile' user.username %}">{{ user.username }}</a>
+			<a href="{% url 'user_profile' user.username %}">{{ user.first_name }}</a>
 			<a href="{% url 'user_logout' %}">Logout</a>
-			<img src+"profile_image.jpg" alt="profile image" width="20" height="20">
+			<img src="{{MEDIA_URL}}/user_profile_images/{{user.username}}_profile_image.jpg" alt="profile image" width="28" height="28">
 		</div>
 	</div>
 	{% else %}

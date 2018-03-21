@@ -3,50 +3,108 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	{{ user.username }}'s Profile
+	{{ user.first_name }}'s Profile
 {% endblock %}
 
 {% block style_block %}
 
-	.profile_left 
+	.profile_left {
 		overflow: hidden;
 		position: fixed;
-		padding-left: 2%;
+		padding-left: 1%;
 		padding-top: 1%;
-		top: 0;
-		left: 0;
-		background: #111;
+		padding-right: 1%;
+		background-colour: #000;
 		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-		max-width: 300px;
+		max-width: 400px;
 		margin: auto;
-		text-align: center;
 		font-family: arial;
 	}
+	.location {
+		colour: grey;
+		font-size: 18px;
+		text-align: center;
+
+	}
+
+	.join-date {
+		colour: black;
+		text-align: center;
+	
+	}	
 
 	.profile_left profile_card {
 		
 	}
-
-	.profile_left title {
+	.profile_left title, .join-date {
 		color: grey;
 		font-size: 18px;
 	}
-	
+	.data {
+  		margin-top: .6em;
+  		color: #81878b;
+	}
+  	.data li {
+    	width: 32%;
+    	text-align: center;
+    	display: inline-block;
+    	font-size: 1.5em;
+    	font-family: arial;
+    	border-right: solid 1px #bdc3c7;
+	}
+    .data li:last-child {
+    	border: none;
+	}
+    .data li span {
+    	display: block;
+    	text-transform: uppercase;
+    	font-family: arial;
+    	font-size: .5em;
+     	margin-top: .6em;
+      	font-weight:700;
+    }
+
 {% endblock %}
 
 {% block body_block %}
 	<div class="profile_left">
 		<div class="profile_card">
-			<img src="profile_picture.jpg" alt="{{ user.username }}" style="width:30%">
-			<h1>{{ user.username }}</h1>
-			<p class="location">{{ user.location }}</p>
-			<p class="join-date">Member since {{ user.date_joined }}</p>
+			<img src="{{MEDIA_URL}}/user_profile_images/{{user.username}}_profile_image.jpg" alt="{{ user.username }}" style="width:100%">
+			<h1 style="text-align: center">{{ user.first_name }} {{ user.last_name }}</h1>
+			<p class="location">Location, Goes, Here</p>
+			<p class="join-date">Member since {{ user.date_joined|date:"d F Y" }}</p>
 			<div class="points-display">
-				
-				
-				
+				<div class="data">
+					<ul>
+					<li>
+						349
+						<span>DP</span>
+					</li>
+					<li>
+						530
+						<span>WP</span>
+					</li>
+					</ul>
+				</div>
 			</div>
-		</div>
+			<div class="user-stats-display">
+				<div class="data">
+				<ul>
+					<li>
+						{{user.followers}}
+						<span>Followers</span>
+					</li>
+					<li>
+						{{user.following}}
+						<span>Following</span>
+					</li>
+					<li>
+						{{user.posts}}
+						<span>Posts</span>
+					</li>		
+				</ul>	
+				</div>
+			</div>
+		</div>		
 	</div>
-	<div class="vertical_line"></div>
 {% endblock %}
