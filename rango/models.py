@@ -14,8 +14,8 @@ class UserProfile(models.Model):
     # userid = models.CharField(max_length=30)
     picture = models.ImageField(upload_to='profile_images', blank=True)
     # owner = models.BooleanField
-    distancepoints = models.DecimalField(max_digits=8, decimal_places=2)
-    weightpoints = models.DecimalField(max_digits=8, decimal_places=2)
+    distancepoints = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    weightpoints = models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
     def __str__(self):
         return self.user.username
@@ -57,9 +57,11 @@ class Workout(models.Model):
     reps = models.IntegerField
     sets = models.IntegerField
     weights = models.IntegerField
+    weight_points = models.IntegerField
 
     distance = models.IntegerField
     cadence = models.DecimalField(max_digits=3, decimal_places=2)
+    cardio_points = models.IntegerField
 
     def __str__(self):
         return self.workoutid

@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^team/(?P<team_id>[\w\-]+)/$', views.team_profile, name='team_profile'),
     url(r'^team/(?P<team_id>[\w\-]+)/leaderboards/$', views.team_leaderboards_index,
         name='team_leaderboards_index'),
-    url(r'^team/(?P<team_id>[\w\-]+)/leaderboards/(?P<workout_id>[\w\-]+)/$', views.team_leaderboards_workout,
+    url(r'^team/(?P<team_id>[\w\-]+)/leaderboards/(?P<workout_type>[\w\-]+)/$', views.team_leaderboards_workout,
         name='team_leaderboards_workout'),
     url(r'^team/(?P<team_id>[\w\-]+)/member_list/$', views.team_member_list, name='team_member_list'),
     url(r'^add_team/', views.add_team, name='add_team'),

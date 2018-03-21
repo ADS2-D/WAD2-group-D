@@ -129,12 +129,11 @@ def team_profile(request, team_id):
     context_dict = {}
 
     try:
-        team = Team.objects.filter(team_id=team_id)
-        context_dict['team'] = team
+        context_dict['team'] = Team.objects.filter(team_id=team_id)
     except Team.DoesNotExist:
         context_dict['team'] = None
 
-    return render(request, 'rango/team_profile.html', context_dict)
+    return render(request, 'rango/team.html', context_dict)
 
 
 def team_leaderboards_index(request, team_id):
@@ -142,22 +141,31 @@ def team_leaderboards_index(request, team_id):
 
     try:
         team = Team.objects.filter(team_id=team_id)
-        users = team.user.all()
 
-        # context_dict['workout_1'] =
+        context_dict['cardio'] = team.user.order_by('-distancepoints')
+        context_dict['weights'] = team.user.order_by('-weightpoints')
     except Team.DoesNotExist:
-        context_dict = None
+        context_dict['cardio'] = None
+        context_dict['weights'] = None
 
     return render(request, 'rango/team_leaderboards_index.html', context_dict)
 
 
-def team_leaderboards_workout(request, group_id):
-    context_dict = None
+def team_leaderboards_workout(request, team_id, workout_id):
+    context_dict = {}
+    # TODO: context dictionary for workout specific team leaderboard
     return render(request, 'rango/team_leaderboards_workout.html', context_dict)
 
 
-def team_member_list(request, group_id):
+def team_member_list(request, team_id):
     context_dict = None
+
+    try:
+        team = Team.objects.filter(team_id=team_id)
+        context_dict['users'] = team.user.all()
+    except Team.DoesNotExist:
+        context_dict['users'] = None
+
     return render(request, 'rango/team_member_list.html', context_dict)
 
 
