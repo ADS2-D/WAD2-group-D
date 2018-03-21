@@ -101,7 +101,7 @@
   			<a href="{% url 'team_leaderboards_index' user.username %}">Leaderboards</a>
 		<div class="login-container">
 			<a href="{% url 'user_profile' user.username %}">{{ user.username }}</a>
-			<li><a href="{% url 'user_logout' %}">Logout</a></li>
+			<a href="{% url 'user_logout' %}">Logout</a>
 			<img src+"profile_image.jpg" alt="profile image" width="20" height="20">
 		</div>
 	</div>

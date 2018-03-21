@@ -8,10 +8,14 @@
 
 {% block style_block %}
 
-	.profile_left {
+	.profile_left 
 		overflow: hidden;
-		align: left;
-		background: #333;
+		position: fixed;
+		padding-left: 2%;
+		padding-top: 1%;
+		top: 0;
+		left: 0;
+		background: #111;
 		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 		max-width: 300px;
 		margin: auto;
@@ -28,21 +32,15 @@
 		font-size: 18px;
 	}
 	
-	.vertical_line {
-		height: 150px;
-		width: 1px;
-		background: #000;
-
-	}
 {% endblock %}
 
 {% block body_block %}
-	<div class="profile_left" align="left">
+	<div class="profile_left">
 		<div class="profile_card">
 			<img src="profile_picture.jpg" alt="{{ user.username }}" style="width:30%">
 			<h1>{{ user.username }}</h1>
 			<p class="location">{{ user.location }}</p>
-			<p class="join-date">Member since {{ user.joindate }}</p>
+			<p class="join-date">Member since {{ user.date_joined }}</p>
 			<div class="points-display">
 				
 				
