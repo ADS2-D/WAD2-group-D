@@ -1,10 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-import string
-import random
 import uuid
-from datetime import datetime
 
 
 # Create your models here.
@@ -29,7 +26,7 @@ class Team(models.Model):
     user = models.ManyToManyField(User)
 
     # additional attributes
-    teamid = models.CharField(max_length=30)
+    team_id = models.CharField(max_length=30)
     name = models.CharField(max_length=30)
     picture = models.ImageField(upload_to='team_images', blank=True)
 
@@ -40,13 +37,13 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
-		
+
 class WorkoutType(models.Model):
     name = models.CharField
     cardio = models.NullBooleanField
-    weights = models.NullBooleanField	
-		
-		
+    weights = models.NullBooleanField
+
+
 class Workout(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.ForeignKey(User)

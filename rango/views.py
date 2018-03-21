@@ -11,6 +11,7 @@ def home(request):
     response = render(request, 'rango/index.html')
     return response
 
+
 def about(request):
     return render(request, 'rango/about.html')
 
@@ -87,9 +88,8 @@ def user_profile(request, username):
 
     try:
         user = User.objects.filter(username=username)
-        userProfile = UserProfile.objects.filter(user=user)
         context_dict['workouts'] = Workout.objects.filter(user=user).order_by('-date')[:-5]
-        context_dict['user_profile'] = userProfile
+        context_dict['user_profile'] = UserProfile.objects.filter(user=user)
         context_dict['team_number'] = Team.objects.filter(user=user).count()
     except User.DoesNotExist:
         context_dict['workouts'] = None
@@ -101,38 +101,71 @@ def user_profile(request, username):
 
 def user_timeline(request, username):
     context_dict = {}
+
+    try:
+        user = User.objects.filter(username=username)
+        context_dict['workouts'] = Workout.objects.filter(user=user).order_by('-date')
+        context_dict['user_profile'] = UserProfile.objects.filter(user=user)
+    except User.DoesNotExist or Workout.DoesNotExist:
+        context_dict['workouts'] = None
+        context_dict['user_profile'] = None
+
     return render(request, 'rango/user_timeline.html', context_dict)
 
 
-def user_groups(request, username):
+def user_teams(request, username):
+    context_dict = {}
+
+    try:
+        user = User.objects.filter(username=username)
+        context_dict['user_teams'] = Team.objects.filter(user=user).order_by('-name')
+    except User.DoesNotExist or Team.DoesNotExist:
+        context_dict['user_teams'] = None
+
+    return render(request, 'rango/user_teams.html', context_dict)
+
+
+def team_profile(request, team_id):
+    context_dict = {}
+
+    try:
+        team = Team.objects.filter(team_id=team_id)
+        context_dict['team'] = team
+    except Team.DoesNotExist:
+        context_dict['team'] = None
+
+    return render(request, 'rango/team_profile.html', context_dict)
+
+
+def team_leaderboards_index(request, team_id):
+    context_dict = {}
+
+    try:
+        team = Team.objects.filter(team_id=team_id)
+        users = team.user.all()
+
+        # context_dict['workout_1'] =
+    except Team.DoesNotExist:
+        context_dict = None
+
+    return render(request, 'rango/team_leaderboards_index.html', context_dict)
+
+
+def team_leaderboards_workout(request, group_id):
     context_dict = None
-    return render(request, 'rango/user_groups.html', context_dict)
+    return render(request, 'rango/team_leaderboards_workout.html', context_dict)
 
 
-def group_profile(request, group_id):
+def team_member_list(request, group_id):
     context_dict = None
-    return render(request, 'rango/group_profile.html', context_dict)
+    return render(request, 'rango/team_member_list.html', context_dict)
 
 
-def group_leaderboards_index(request, group_id):
-    context_dict = None
-    return render(request, 'rango/group_leaderboards_index.html', context_dict)
-
-
-def group_leaderboards_workout(request, group_id):
-    context_dict = None
-    return render(request, 'rango/group_leaderboards_workout.html', context_dict)
-
-
-def group_member_list(request, group_id):
-    context_dict = None
-    return render(request, 'rango/group_member_list.html', context_dict)
-
-
-def add_group(request):
+@login_required
+def add_team(request):
     # TODO: use forms (like with category creation in tango_with_django) and models to create new groups
     context_dict = None
-    return render(request, 'rango/add_group.html', context_dict)
+    return render(request, 'rango/add_team.html', context_dict)
 
 
 @login_required
