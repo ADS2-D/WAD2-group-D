@@ -50,6 +50,8 @@ def user_login(request):
 
 
 def register(request):
+    context_dict = {}
+
     registered = False
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
@@ -74,7 +76,11 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    return render(request, 'rango/register.html')
+    context_dict['user_form'] = user_form
+    context_dict['profile_form'] = profile_form
+    context_dict['registered'] = registered
+
+    return render(request, 'rango/register.html', context_dict)
 
 
 @login_required
