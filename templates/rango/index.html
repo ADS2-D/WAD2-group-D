@@ -14,9 +14,7 @@
 	{% if user.is_authenticated %}
 		AUTHENTICATED - This is the Home page
 	{% else %}
-		NOT AUTHENTICATED - This is the Home page
-		<li><a href="{% url 'register' %}">Register</a></li>
-		<li><a href="{% url 'user_login' %}">Log in</a></li>		
+		NOT AUTHENTICATED - This is the Home page		
 	{% endif %}
 		
 {% endblock %}

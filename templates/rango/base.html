@@ -112,6 +112,11 @@
 	<div class="topnav">
 		<a href="{% url 'home' %}">Home</a>
 		<a href="{% url 'about' %}">About</a>
+		
+		<div class="login-container">
+		    <a href="{% url 'register' %}">Register</a>
+		    <a href="{% url 'user_login' %}">Login</a>
+	    </div>
 	</div>
 	{% endif %}
 	

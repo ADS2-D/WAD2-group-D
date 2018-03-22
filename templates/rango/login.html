@@ -15,7 +15,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 form {border: 3px solid #f1f1f1;}
 
 input[type=text], input[type=password] {
-    width: 100%;
+    width: 35%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -24,13 +24,13 @@ input[type=text], input[type=password] {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #333;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 35%;
 }
 
 button:hover {
@@ -42,7 +42,7 @@ button:hover {
 }
 
 span.psw {
-    float: right;
+    float: middle;
     padding-top: 16px;
 }
 </style>
@@ -52,22 +52,23 @@ span.psw {
 {% block body_block %}
 <body>
 
-<h2>Login Form</h2>
-
-<form action="/action_page.php">
+<form class="user_login" method="post" action="{% url 'user_login' %}">
     {% csrf_token %}
+	
   <div class="container">
-    <label for="uname"><b>Username</b></label>
+    <p><label for="uname"><b>Username</b></label></p>
     <input type="text" placeholder="Enter Username" name="username" required>
 
-    <label for="psw"><b>Password</b></label>
+	<br>
+    <p><label for="psw"><b>Password</b></label></p>
     <input type="password" placeholder="Enter Password" name="password" required>
-        
+    
+    <br>	
     <button type="submit">Login</button>
 	
-	<span class="psw">Have not registered for an account? Click
+	<p><span class="psw">Have not registered for an account? Click
 	    <a href="{% url 'register' %}">here</a>
-	</span>
+	</span></p>
   </div>
 </form>
 
