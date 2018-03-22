@@ -119,7 +119,7 @@ def user_teams(request, username):
 
     try:
         user = User.objects.get(username=username)
-        context_dict['user_teams'] = Team.objects.filter(user=user).order_by('-name')
+        context_dict['user_teams'] = Team.objects.filter(users=user).order_by('-name')
     except User.DoesNotExist or Team.DoesNotExist:
         context_dict['user_teams'] = None
 

@@ -23,7 +23,7 @@ class TeamForm(forms.ModelForm):
 
     class Meta:
         model = Team
-        fields = ('name', 'team_id', 'picture')
+        fields = ('name', 'team_id')
 
 
 class WorkoutForm(forms.ModelForm):

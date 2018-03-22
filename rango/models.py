@@ -20,7 +20,7 @@ class UserProfile(models.Model):
     # owner = models.BooleanField
     distancepoints = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     weightpoints = models.DecimalField(max_digits=8, decimal_places=2, default=0)
-    location = models.CharField(max_length=30)
+    location = models.CharField(max_length=30, blank=True)
 
     def __str__(self):
         return self.user.username
