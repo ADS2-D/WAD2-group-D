@@ -83,13 +83,15 @@
 			margin-right: 4px;
 			margin-bottom: 4px;
 			border: none;
-		}				
+		}
+		
+		{% block style_block %}
+		
+		{% endblock %}
 	</style>
 </head>
 
-	{% block style_block %}
-		
-	{% endblock %}
+	
 
 <body>
 	{% if user.is_authenticated %}
