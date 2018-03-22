@@ -21,7 +21,8 @@ def user_redirect(request):
     # TODO: redirect to user's profile at /user/<username>
     if request.user.is_authenticated():
         username = request.user.username
-        return HttpResponseRedirect(reverse('home'))
+        # return HttpResponseRedirect(reverse('home'))
+        return user_profile(request, username)
         # redirect here
     else:
         return HttpResponseRedirect(reverse('home'))
@@ -73,7 +74,7 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    return render(request, 'rango/register.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'rango/register.html')
 
 
 @login_required
@@ -117,7 +118,7 @@ def user_teams(request, username):
     context_dict = {}
 
     try:
-        user = User.objects.filter(username=username)
+        user = User.objects.get(username=username)
         context_dict['user_teams'] = Team.objects.filter(users=user).order_by('-name')
     except User.DoesNotExist or Team.DoesNotExist:
         context_dict['user_teams'] = None
@@ -140,7 +141,7 @@ def team_leaderboards_index(request, team_id):
     context_dict = {}
 
     try:
-        team = Team.objects.filter(team_id=team_id)
+        team = Team.objects.get(team_id=team_id)
 
         context_dict['cardio'] = team.user.order_by('-distancepoints')
         context_dict['weights'] = team.user.order_by('-weightpoints')
@@ -171,15 +172,14 @@ def team_member_list(request, team_id):
 
 @login_required
 def add_team(request):
+    # TODO: use forms (like with category creation in tango_with_django) and models to create new groups
     form = TeamForm()
 
     if request.method == 'POST':
         form = TeamForm(request.POST)
 
         if form.is_valid():
-            team = form.save(commit=False)
-            team.users.add(request.user)
-            team.save()
+            form.save(commit=True)
             return user_redirect(request)
         else:
             print(form.errors)
@@ -189,7 +189,6 @@ def add_team(request):
 
 @login_required
 def add_workout(request, username):
-    context_dict = {}
     form = WorkoutForm()
 
     try:
@@ -230,4 +229,5 @@ def leaderboards_index(request):
 
 def leaderboards_single(request, workout_id):
     context_dict = None
+
     return render(request, 'rango/leaderboard.html', context_dict)
