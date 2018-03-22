@@ -32,13 +32,13 @@ def user_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = authenticate(usename=username, password=password)
+        user = authenticate(username=username, password=password)
 
         if user:
             if user.is_active:
                 login(request, user)
                 # TODO: redirect user to their own profile
-                return HttpResponseRedirect(reverse('user_redirect'))
+                return HttpResponseRedirect(reverse('home'))
             else:
                 return HttpResponse('Your WWWorkout account has been disabled.')
         else:

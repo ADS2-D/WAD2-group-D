@@ -2,9 +2,13 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 import uuid
-
+from datetime import datetime
+from django.utils import timezone
 
 # Create your models here.
+
+DEFAULT_WORKOUT_ID = 1
+
 
 class UserProfile(models.Model):
     # Links UserProfile to a User model instance.
@@ -47,12 +51,12 @@ class WorkoutType(models.Model):
 class Workout(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.ForeignKey(User)
-    workoutType = models.ForeignKey(WorkoutType)
+    workoutType = models.ForeignKey("WorkoutType", default=DEFAULT_WORKOUT_ID)
 
     # The additional attributes we wish to include.
     workout_id = models.CharField(max_length=12, unique=True, default=uuid.uuid4())
-    picture = models.ImageField(upload_to='profile_images', blank=True)
-    date = models.DateTimeField(auto_now_add=True, blank=True)
+    picture = models.ImageField(upload_to='workout_images', blank=True)
+    date = models.DateTimeField(auto_now=True, blank=True)
 
     reps = models.IntegerField(default=0)
     sets = models.IntegerField(default=0)
@@ -64,4 +68,4 @@ class Workout(models.Model):
     cardio_points = models.IntegerField
 
     def __str__(self):
-        return self.workoutid
+        return self.workout_id
