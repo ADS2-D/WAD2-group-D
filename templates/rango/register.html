@@ -2,30 +2,40 @@
 {% extends 'rango/base.html' %}
 {% load staticfiles %}
 
+<html>
 {% block title_block %}
-	Sign Up
+    Sign Up
 {% endblock %}
-
-{% block style_block %}
-	.sign-in-box {
-		overflow: hidden;
-		background-color: #333;
-	}
-
-	.sign-in-box
-
-{% endblock %}
-
-{% block body_block %}
-	<div class="sign-in-box">
-		<form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
-		 {% csrf_token %}
+    
+	<head>
+    {% block style_block %}
+        <style>
+            body {font-family: Arial, Helvetica, sans-serif;}
+			form {border: 3px solid #f1f1f1;}
 			
-			{{ user_form.as_p }}
-			{{ profile_form.as_p }}
+	        .sign-in-box {
+			    padding: 20px;
+                overflow: hidden;
+                background-color: #999;
+            }
+        </style>
+    {% endblock %}
+	</head>
 
-			<input type="submit" name="submit" value="Register">
-		
-		</form>
-	</div>
-{% endblock %}
+    {% block body_block %}
+	    <div class="sign-in-box">
+		    <form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+			
+                {{ user_form.as_p }}
+                {{ profile_form.as_p }}
+
+			    <br><input type="submit" name="submit" value="Register">		
+		    </form>
+			
+			<span class="psw">Already have an account? Click
+	            <a href="{% url 'user_login' %}">here</a>
+	        </span>
+	    </div>
+    {% endblock %}
+</html>
