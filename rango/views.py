@@ -136,7 +136,7 @@ def team_profile(request, team_id):
     context_dict = {}
 
     try:
-        context_dict['team'] = Team.objects.filter(team_id=team_id)
+        context_dict['team'] = Team.objects.get(team_id=team_id)
     except Team.DoesNotExist:
         context_dict['team'] = None
 
