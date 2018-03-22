@@ -21,7 +21,8 @@ def user_redirect(request):
     # TODO: redirect to user's profile at /user/<username>
     if request.user.is_authenticated():
         username = request.user.username
-        return HttpResponseRedirect(reverse('home'))
+        # return HttpResponseRedirect(reverse('home'))
+        return user_profile(request, username)
         # redirect here
     else:
         return HttpResponseRedirect(reverse('home'))
@@ -117,7 +118,7 @@ def user_teams(request, username):
     context_dict = {}
 
     try:
-        user = User.objects.filter(username=username)
+        user = User.objects.get(username=username)
         context_dict['user_teams'] = Team.objects.filter(user=user).order_by('-name')
     except User.DoesNotExist or Team.DoesNotExist:
         context_dict['user_teams'] = None
@@ -140,7 +141,7 @@ def team_leaderboards_index(request, team_id):
     context_dict = {}
 
     try:
-        team = Team.objects.filter(team_id=team_id)
+        team = Team.objects.get(team_id=team_id)
 
         context_dict['cardio'] = team.user.order_by('-distancepoints')
         context_dict['weights'] = team.user.order_by('-weightpoints')
@@ -188,7 +189,6 @@ def add_team(request):
 
 @login_required
 def add_workout(request, username):
-    context_dict = {}
     form = WorkoutForm()
 
     try:
@@ -229,4 +229,5 @@ def leaderboards_index(request):
 
 def leaderboards_single(request, workout_id):
     context_dict = None
+
     return render(request, 'rango/leaderboard.html', context_dict)
