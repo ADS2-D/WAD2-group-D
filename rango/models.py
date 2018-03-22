@@ -2,9 +2,13 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 import uuid
-
+from datetime import datetime
+from django.utils import timezone
 
 # Create your models here.
+
+DEFAULT_WORKOUT_ID = 1
+
 
 class UserProfile(models.Model):
     # Links UserProfile to a User model instance.
@@ -16,6 +20,7 @@ class UserProfile(models.Model):
     # owner = models.BooleanField
     distancepoints = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     weightpoints = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    location = models.CharField(max_length=30)
 
     def __str__(self):
         return self.user.username
@@ -23,7 +28,7 @@ class UserProfile(models.Model):
 
 class Team(models.Model):
     # Links Teams and Users model instance.
-    user = models.ManyToManyField(UserProfile)
+    users = models.ManyToManyField(User)
 
     # additional attributes
     team_id = models.CharField(max_length=30)
@@ -31,7 +36,7 @@ class Team(models.Model):
     picture = models.ImageField(upload_to='team_images', blank=True)
 
     def save(self, *args, **kwargs):
-        self.teamid = slugify(self.name)
+        self.team_id = slugify(self.name)
         super(Team, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -47,21 +52,21 @@ class WorkoutType(models.Model):
 class Workout(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.ForeignKey(User)
-    workoutType = models.ForeignKey(WorkoutType)
+    workoutType = models.ForeignKey("WorkoutType", default=DEFAULT_WORKOUT_ID)
 
     # The additional attributes we wish to include.
-    workoutid = models.CharField(max_length=12, unique=True, default=uuid.uuid4())
-    picture = models.ImageField(upload_to='profile_images', blank=True)
-    date = models.DateTimeField(auto_now_add=True, blank=True)
+    workout_id = models.CharField(max_length=12, unique=True, default=uuid.uuid4())
+    picture = models.ImageField(upload_to='workout_images', blank=True)
+    date = models.DateTimeField(auto_now=True, blank=True)
 
-    reps = models.IntegerField
-    sets = models.IntegerField
-    weights = models.IntegerField
+    reps = models.IntegerField(default=0)
+    sets = models.IntegerField(default=0)
+    weights = models.IntegerField(default=0)
     weight_points = models.IntegerField
 
-    distance = models.IntegerField
+    distance = models.IntegerField(default=0)
     cadence = models.DecimalField(max_digits=3, decimal_places=2)
     cardio_points = models.IntegerField
 
     def __str__(self):
-        return self.workoutid
+        return self.workout_id
