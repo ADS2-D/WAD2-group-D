@@ -172,14 +172,15 @@ def team_member_list(request, team_id):
 
 @login_required
 def add_team(request):
-    # TODO: use forms (like with category creation in tango_with_django) and models to create new groups
     form = TeamForm()
 
     if request.method == 'POST':
         form = TeamForm(request.POST)
 
         if form.is_valid():
-            form.save(commit=True)
+            team = form.save(commit=False)
+            team.users.add(request.user)
+            team.save()
             return user_redirect(request)
         else:
             print(form.errors)
