@@ -15,7 +15,7 @@ class UserForm(forms.ModelForm):
 
 class UserProfileForm(forms.ModelForm):
     picture = forms.ImageField(help_text='Enter a profile picture.', required=False)
-    
+
     class Meta:
         model = UserProfile
         fields = ('picture',)
