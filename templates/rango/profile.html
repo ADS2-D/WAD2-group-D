@@ -69,19 +69,21 @@
 {% block body_block %}
 	<div class="profile_left">
 		<div class="profile_card">
+			{% if user_profile.picture %}
 			<img src="{{ user_profile.picture.url }}" alt="{{ user.username }}" style="width:100%">
+			{% endif %}
 			<h1 style="text-align: center">{{ user.first_name }} {{ user.last_name }}</h1>
-			<p class="location">Location, Goes, Here</p>
+			<p class="location">{{user_profile.location}}</p>
 			<p class="join-date">Member since {{ user.date_joined|date:"d F Y" }}</p>
 			<div class="points-display">
 				<div class="data">
 					<ul>
 					<li>
-						{{ user.distancepoints }}
+						{{ user_profile.distancepoints }}
 						<span>DP</span>
 					</li>
 					<li>
-						{{ user.weightpoints }}
+						{{ user_profile.weightpoints }}
 						<span>WP</span>
 					</li>
 					</ul>

@@ -11,5 +11,60 @@
 {% endblock %}
 
 {% block body_block %}
+	<div class="profile_left">
+		<div class="profile_card">
+			<img src="{{ user_profile.picture.url }}" alt="{{ user.username }}" style="width:100%">
+			<h1 style="text-align: center">{{team.name}}</h1>
+			<p class="location">Location, Goes, Here</p>
+			<p class="join-date">Created {{ team.date_created|date:"d F Y" }}</p>
+			<div class="points-display">
+				<div class="data">
+					<ul>
+					<li>
+						235235
+						<span>DP</span>
+					</li>
+					<li>
+						2342266
+						<span>WP</span>
+					</li>
+					</ul>
+				</div>
+			</div>
+			<div class="user-stats-display">
+				<div class="data">
+				<ul>
+					<li>
+						{{user.followers}}
+						<span>Followers</span>
+					</li>
+					<li>
+						{{user.following}}
+						<span>Following</span>
+					</li>
+					<li>
+						{{user.posts}}
+						<span>Posts</span>
+					</li>		
+				</ul>	
+				</div>
+			</div>
+		</div>		
+	</div>
+	<div class="member-list">
+		
+		{% if team.users %}
+		
+		{% for user in team.users %}
+		<li><a href="{% url 'user_profile' user.name %}">{{ user.name }}</a></li>
+		
+		{% endfor %}
+		
+		{% else %}
+		This team has no members!
+		{% endif %}
+
+
+	</div>
 
 {% endblock %}
