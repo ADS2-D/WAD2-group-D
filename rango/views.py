@@ -145,11 +145,8 @@ def team_profile(request, team_id):
 
     try:
         context_dict['team'] = Team.objects.get(team_id=team_id)
-        users = Team.objects.filter(team_id=team_id)
-        context_dict['users'] = []
-        for user in users:
-            context_dict['users'] += user
-        #context_dict['users'] = Team.users.filter(team_id=team_id).all()
+        users = Team.objects.get(team_id=team_id).users.all()
+        context_dict['users'] = users
     except Team.DoesNotExist:
         context_dict['team'] = None
         context_dict['users'] = None

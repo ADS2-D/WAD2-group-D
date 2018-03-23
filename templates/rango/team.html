@@ -53,13 +53,12 @@
 	</div>
 	<div class="member-list">
 		
-		{% if team.users %}
+		{% if users %}
 		
-		{% for user in team.users %}
-		<li><a href="{% url 'user_profile' user.name %}">{{ user.name }}</a></li>
+		{% for user in users %}
+		<li><a href="{% url 'user_profile' user.username %}">{{ user.name }}</a></li>
 		
 		{% endfor %}
-		
 		{% else %}
 		This team has no members!
 		{% endif %}
