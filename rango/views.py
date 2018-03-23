@@ -80,7 +80,10 @@ def register(request):
     context_dict['profile_form'] = profile_form
     context_dict['registered'] = registered
 
-    return render(request, 'rango/register.html', context_dict)
+    if registered:
+        return HttpResponseRedirect(reverse('user_login'))
+    else:
+        return render(request, 'rango/register.html', context_dict)
 
 
 @login_required
