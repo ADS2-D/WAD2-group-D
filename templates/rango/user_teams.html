@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Your Teams
+{% endblock %}
+
+{% block style_block %}
+	
+{% endblock %}
+
+{% block body_block %}
+
+	{% if user_teams %}
+		<ul>
+		{% for team in user_teams %}
+			<li><a href="{% url 'team_profile' team.team_id %}">{{ team.name }}</a></li>
+		{% endfor %}
+		</ul>
+		{% else %}
+			<strong>You are not a member of any teams!</strong>
+		{% endif %}
+
+	
+{% endblock %}
