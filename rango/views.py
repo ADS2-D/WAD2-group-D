@@ -99,7 +99,7 @@ def user_profile(request, username):
     if request.user.is_authenticated():
         if username == request.user.username:
             context_dict['own_profile'] = True
-        else
+        else:
             context_dict['own_profile'] = False
         
 
