@@ -27,7 +27,7 @@ SECRET_KEY = '(yleyh1+=-_rv(^81t$%e*a2w*hm==ps3m@55p@9)02=@uy*=w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['wwworkout.pythonanywhere.com']
 
 # Application definition
 
