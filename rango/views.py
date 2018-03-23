@@ -95,6 +95,13 @@ def user_logout(request):
 # TODO: implement database access for context dictionaries
 def user_profile(request, username):
     context_dict = {}
+    
+    if request.user.is_authenticated():
+        if username == request.user.username:
+            context_dict['own_profile'] = True
+        else
+            context_dict['own_profile'] = False
+        
 
     try:
         profile_user = User.objects.filter(username=username)
