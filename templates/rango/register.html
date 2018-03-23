@@ -7,35 +7,65 @@
     Sign Up
 {% endblock %}
     
-	<head>
-    {% block style_block %}
-        <style>
-            body {font-family: Arial, Helvetica, sans-serif;}
-			form {border: 3px solid #f1f1f1;}
-			
-	        .sign-in-box {
-			    padding: 20px;
-                overflow: hidden;
-                background-color: #999;
-            }
-        </style>
-    {% endblock %}
+<head>
+{% block style_block %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+form {border: 3px solid #f1f1f1;}
+
+input[type=text], input[type=password] {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 25%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.container {
+    padding: 20px;
+}
+
+span.psw {
+    float: middle;
+    padding-top: 16px;
+}
+</style>
+{% endblock %}
 	</head>
 
     {% block body_block %}
-	    <div class="sign-in-box">
-		    <form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+	    <div class="container">
+		    <form id="user_form" method="post" action="{% url 'register' %}">
                 {% csrf_token %}
 			
                 {{ user_form.as_p }}
                 {{ profile_form.as_p }}
 
-			    <br><input type="submit" name="submit" value="Register">		
-		    </form>
+			    <br><button type="submit" name="submit" value="Register">Register</button>
+
+	            <p><span class="psw">Already have an account? Login
+	                <a href="{% url 'user_login' %}">here</a>
+	            </span></p>
+				
+		    
+			</form>
 			
-			<span class="psw">Already have an account? Click
-	            <a href="{% url 'user_login' %}">here</a>
-	        </span>
 	    </div>
     {% endblock %}
 </html>

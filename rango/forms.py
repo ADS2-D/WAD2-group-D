@@ -5,8 +5,8 @@ from rango.models import UserProfile, Team, Workout
 
 class UserForm(forms.ModelForm):
     username = forms.CharField(help_text='Please enter a username.')
-    password = forms.CharField(widget=forms.PasswordInput())
-    email = forms.CharField(help_text='Email here.')
+    password = forms.CharField(widget=forms.PasswordInput(), help_text='Please enter a password.')
+    email = forms.CharField(help_text='Please enter email here.')
 
     class Meta:
         model = User
@@ -14,7 +14,7 @@ class UserForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
-    picture = forms.ImageField(help_text='Enter a profile picture.', required=False)
+    picture = forms.ImageField(help_text='Upload a profile picture.', required=False)
 
     class Meta:
         model = UserProfile
@@ -31,7 +31,6 @@ class TeamForm(forms.ModelForm):
 
 
 class WorkoutForm(forms.ModelForm):
-
     class Meta:
         model = Workout
         fields = ('workout_id', 'reps', 'sets', 'weights', 'distance', 'cadence',)
