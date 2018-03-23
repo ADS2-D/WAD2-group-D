@@ -69,7 +69,7 @@
 {% block body_block %}
 	<div class="profile_left">
 		<div class="profile_card">
-			<img src="" alt="{{ user.username }}" style="width:100%">
+			<img src="{{ user_profile.picture.url }}" alt="{{ user.username }}" style="width:100%">
 			<h1 style="text-align: center">{{ user.first_name }} {{ user.last_name }}</h1>
 			<p class="location">Location, Goes, Here</p>
 			<p class="join-date">Member since {{ user.date_joined|date:"d F Y" }}</p>
