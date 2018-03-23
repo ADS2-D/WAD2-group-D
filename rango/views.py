@@ -101,12 +101,10 @@ def user_profile(request, username):
             context_dict['own_profile'] = True
         else:
             context_dict['own_profile'] = False
-        
-
     try:
-        profile_user = User.objects.filter(username=username)
+        profile_user = User.objects.get(username=username)
         context_dict['workouts'] = Workout.objects.filter(user=profile_user).order_by('-date').reverse()
-        context_dict['user_profile'] = UserProfile.objects.filter(user=profile_user)
+        context_dict['user_profile'] = UserProfile.objects.get(user=profile_user)
         context_dict['teams'] = Team.objects.filter(users=profile_user)
     except User.DoesNotExist:
         context_dict['workouts'] = None
