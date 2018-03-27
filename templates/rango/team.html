@@ -8,42 +8,96 @@
 
 {% block style_block %}
 
+	.profile_left {
+		overflow: hidden;
+		position: fixed;
+		height: 100%;
+		width: 30%;
+		padding-left: 1%;
+		padding-top: 1%;
+		padding-right: 1%;
+		background-colour: #000;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		max-width: 400px;
+		margin: auto;
+		font-family: arial;
+	}
+	.location {
+		colour: grey;
+		font-size: 18px;
+		text-align: center;
+
+	}
+
+	.join-date {
+		colour: black;
+		text-align: center;
+	
+	}	
+
+	.profile_left profile_card {
+		
+	}
+	.profile_left title, .join-date {
+		color: grey;
+		font-size: 18px;
+	}
+	.data {
+  		margin-top: .6em;
+  		color: #81878b;
+	}
+  	.data li {
+    	width: 32%;
+    	text-align: center;
+    	display: inline-block;
+    	font-size: 1.5em;
+    	font-family: arial;
+    	border-right: solid 1px #bdc3c7;
+	}
+    .data li:last-child {
+    	border: none;
+	}
+    .data li span {
+    	display: block;
+    	text-transform: uppercase;
+    	font-family: arial;
+    	font-size: .5em;
+     	margin-top: .6em;
+      	font-weight:700;
+    }
+
 {% endblock %}
 
 {% block body_block %}
 	<div class="profile_left">
 		<div class="profile_card">
-			<img src="{{ user_profile.picture.url }}" alt="{{ user.username }}" style="width:100%">
+			<img src="{{ team.picture.url }}" alt="{{ user.username }}" style="width:100%">
 			<h1 style="text-align: center">{{team.name}}</h1>
-			<p class="location">Location, Goes, Here</p>
+			<p class="location">{{team.location}}</p>
 			<p class="join-date">Created {{ team.date_created|date:"d F Y" }}</p>
 			<div class="points-display">
-				<div class="data">
+				<div class="data" align="center">
 					<ul>
 					<li>
-						235235
+						{{ team.distancepoints|floatformat }}
 						<span>DP</span>
 					</li>
 					<li>
-						2342266
+						{{ team.weightpoints|floatformat }}
 						<span>WP</span>
 					</li>
 					</ul>
 				</div>
 			</div>
 			<div class="user-stats-display">
-				<div class="data">
+				<div class="data" align="center">
 				<ul>
 					<li>
-						{{user.followers}}
-						<span>Followers</span>
+						{{team.members.count}}
+						<span>Members</span>
 					</li>
 					<li>
-						{{user.following}}
-						<span>Following</span>
-					</li>
-					<li>
-						{{user.posts}}
+						{{team.posts.count}}
 						<span>Posts</span>
 					</li>		
 				</ul>	

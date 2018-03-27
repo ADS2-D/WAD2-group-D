@@ -13,14 +13,17 @@
 {% block body_block %}
 
 	{% if user_teams %}
+		<br>
+		<strong>Your Teams:</strong>
 		<ul>
 		{% for team in user_teams %}
 			<li><a href="{% url 'team_profile' team.team_id %}">{{ team.name }}</a></li>
 		{% endfor %}
 		</ul>
-		{% else %}
-			<strong>You are not a member of any teams!</strong>
-		{% endif %}
+	{% else %}
+		<br>
+		<strong>You are not a member of any teams!</strong>
+	{% endif %}
 
 	
 {% endblock %}
