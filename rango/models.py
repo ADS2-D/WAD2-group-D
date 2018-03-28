@@ -54,7 +54,7 @@ class Workout(models.Model):
     workoutType = models.ForeignKey("WorkoutType", default=DEFAULT_WORKOUT_ID)
 
     # The additional attributes we wish to include.
-    workout_id = models.UUIDField(primary_key=False, max_length=12, unique=True, default=uuid.uuid4())
+    workout_id = models.UUIDField(primary_key=False, default=uuid.uuid4())
     picture = models.ImageField(upload_to='workout_images', blank=True)
     date = models.DateTimeField(auto_now=True, blank=True)
 
