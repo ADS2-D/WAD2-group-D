@@ -92,7 +92,7 @@
 			<img src="{{ user_profile.picture.url }}" alt="{{ user.username }}" style="width:60%; height: 60%">
 			</div>
 			{% endif %}
-			<h1 style="text-align: center">{{ user.first_name }} {{ user.last_name }}</h1>
+			<h1 style="text-align: center">{{ user.username }}</h1>
 			<p class="location">{{user_profile.location}}</p>
 			<p class="join-date">Member since {{ user.date_joined|date:"d F Y" }}</p>
 				<div class="points-display">
