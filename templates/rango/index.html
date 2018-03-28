@@ -7,14 +7,43 @@
 {% endblock %}
 
 {% block style_block %}
-
+.centre {
+		overflow: hidden;
+		position: fixed;
+		padding-left: 25%;
+		padding-top: 1%;
+		padding-right: 1%;
+		font-family: arial;
+		font-size: 16px;
+}
 {% endblock %}
 
 {% block body_block %}
 	{% if user.is_authenticated %}
-		AUTHENTICATED - This is the Home page
+<div class = "centre">
+	<h1>Welcome to the Home Page</h1>
+	<p class = "bottom_space">
+		<h3>About</h3>
+		<li>Check out the about page to learn more about the team!</li>
+	</p>
+	<p class = "bottom_space">
+		<h3>Profile</h3>
+		<li>The profile tab will take you to your own personal wwworkout profile, from here you can post workouts and workout tips</li>
+	</p>
+	<p class = "bottom_space">
+		<h3>Teams</h3>
+		<li>The Teams tab will show you all created user teams, from here you can view and join teams</li>
+		<li>And if things don't work out, you can leave just as easily!</li>
+	</p>
+	<p class = "bottom_space">
+		<h3>Leaderboards</h3>
+		<li>Battle it out to be the fittest and strongest of your friends!</li>
+	</p>
+
+</div>
+
 	{% else %}
-		NOT AUTHENTICATED - This is the Home page		
+<h1>Welcome to the Home Page! To create an account, click on the register tab on the top right corner :)</h1>
 	{% endif %}
 		
 {% endblock %}
