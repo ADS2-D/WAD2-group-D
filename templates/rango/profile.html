@@ -88,7 +88,9 @@
 		<div class="profile_left">
 			<div class="profile_card">
 			{% if user_profile.picture %}
-			<img src="{{ user_profile.picture.url }}" alt="{{ user.username }}" style="width:100%">
+			<div style="display: flex; justify-content: center">
+			<img src="{{ user_profile.picture.url }}" alt="{{ user.username }}" style="width:60%; height: 60%">
+			</div>
 			{% endif %}
 			<h1 style="text-align: center">{{ user.first_name }} {{ user.last_name }}</h1>
 			<p class="location">{{user_profile.location}}</p>
