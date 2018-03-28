@@ -33,13 +33,13 @@ class TeamForm(forms.ModelForm):
 
 class WorkoutForm(forms.ModelForm):
     workoutType = forms.ModelChoiceField(queryset=WorkoutType.objects.all())
-    picture = forms.ImageField(upload_to='workout_images', blank=True)
+    #picture = forms.ImageField(upload_to='workout_images', blank=True)
 
-    reps = forms.IntegerField(default=0)
-    sets = forms.IntegerField(default=0)
-    weights = forms.IntegerField(default=0)
+    reps = forms.IntegerField(initial=0)
+    sets = forms.IntegerField(initial=0)
+    weights = forms.IntegerField(initial=0)
 
-    distance = forms.IntegerField(default=0)
+    distance = forms.IntegerField(initial=0)
     cadence = forms.DecimalField(max_digits=3, decimal_places=2)
 
     class Meta:
