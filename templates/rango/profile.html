@@ -112,22 +112,43 @@
 			<div class="user-stats-display">
 				<div class="data">
 				<ul>
-					<li>
+					<li style="width: 25%;">
 						{{user.followers.count}}
 						<span>Followers</span>
 					</li>
-					<li>
+					<li style="width: 25%;">
 						{{user.following.count}}
 						<span>Following</span>
 					</li>
-					<li>
+					<li style="width: 25%;">
 						{{user.workouts.count}}
 						<span>Posts</span>
 					</li>		
 				</ul>	
 				</div>
 			</div>
-			</div>		
+			</div>
+			<div class="member-of-groups">
+				<p class="location">Member of:</p>
+				{% if teams %}
+					{% for team in teams %}
+						<div class="profile-team-display" style="width: 100%; overflow: hidden">
+							<div class="teamname-div" style="float: left;width: 45%; colour: black;text-align: center;">
+								<a href="{% url 'team_profile' team.team_id %}" style="align: center;">{{ team.name }}</a>
+							</div>
+							<div class="image-div" style="float: right; width: 50%">
+								{% if team.picture %}
+								<img src="{{ team.picture.url }}" alt="{{ team.name }}" style="width:10%">
+								{% endif %}
+							</div>
+						</div>
+							
+					{% endfor %}
+				
+				{% else %}
+					This user isn't a member of any teams!
+				{% endif %}
+			</div>
 		</div>	
 	</div>
     <div style="width: 63%; float: right; height: 100%;">
