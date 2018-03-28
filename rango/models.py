@@ -13,10 +13,9 @@ DEFAULT_WORKOUT_ID = 1
 class UserProfile(models.Model):
     # Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
-    # additional attributes
-    # userid = models.CharField(max_length=30)
+
     picture = models.ImageField(upload_to='profile_images', blank=True)
-    # owner = models.BooleanField
+
     distancepoints = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     weightpoints = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     location = models.CharField(max_length=30, blank=True)
@@ -44,9 +43,9 @@ class Team(models.Model):
 
 
 class WorkoutType(models.Model):
-    name = models.CharField
-    cardio = models.NullBooleanField
-    weights = models.NullBooleanField
+    name = models.CharField(max_length=30)
+    cardio = models.NullBooleanField()
+    weights = models.NullBooleanField()
 
 
 class Workout(models.Model):
@@ -62,11 +61,11 @@ class Workout(models.Model):
     reps = models.IntegerField(default=0)
     sets = models.IntegerField(default=0)
     weights = models.IntegerField(default=0)
-    weight_points = models.IntegerField
+    weight_points = models.IntegerField(default=0)
 
     distance = models.IntegerField(default=0)
     cadence = models.DecimalField(max_digits=3, decimal_places=2)
-    distance_points = models.DecimalField(max_digits=5, decimal_places=2)
+    distance_points = models.DecimalField(max_digits=5, decimal_places=2, default=0)
 
     def __str__(self):
         return self.workout_id
