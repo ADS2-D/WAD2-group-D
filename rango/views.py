@@ -95,7 +95,7 @@ def user_logout(request):
 # TODO: implement database access for context dictionaries
 def user_profile(request, username):
     context_dict = {}
-    
+
     if request.user.is_authenticated():
         if username == request.user.username:
             context_dict['own_profile'] = True
@@ -141,6 +141,7 @@ def user_teams(request, username):
 
     return render(request, 'rango/user_teams.html', context_dict)
 
+
 @login_required
 def team_profile(request, team_id):
     context_dict = {}
@@ -154,7 +155,6 @@ def team_profile(request, team_id):
         context_dict['team'] = None
         context_dict['users'] = None
 
-
     user = request.user
 
     if request.method == "POST":
@@ -165,12 +165,8 @@ def team_profile(request, team_id):
             team.users.add(user)
             return render(request, 'rango/team.html', context_dict)
 
-
-
-
-
-
     return render(request, 'rango/team.html', context_dict)
+
 
 def team_leaderboards_index(request, team_id):
     context_dict = {}
@@ -207,11 +203,8 @@ def team_member_list(request, team_id):
 
 @login_required
 def add_team(request):
-    # TODO: use forms (like with category creation in tango_with_django) and models to create new groups
-
     form = TeamForm()
     user = request.user
-
 
     if request.method == 'POST':
         form = TeamForm(request.POST)
@@ -220,7 +213,6 @@ def add_team(request):
             team = form.save(commit=True)
             team.users.clear()
             team.users.add(user)
-
 
             return HttpResponseRedirect(reverse('home'))
         else:
@@ -246,7 +238,12 @@ def add_workout(request, username):
             if user:
                 workout = form.save(commit=False)
                 workout.user = user
+                workout.distancepoints = workout.distance * (1 + workout.cadence)
+                workout.weightpoints = workout.sets * workout.reps * workout.weights
                 workout.save()
+                userProf = UserProfile.objects.get(user=user)
+                userProf.distancepoints += workout.distancepoints
+                userProf.weightpoints += workout.weightpoints
             return user_redirect(request)
         else:
             print(form.errors)
@@ -271,5 +268,7 @@ def leaderboards_index(request):
 
 def leaderboards_single(request, workout_id):
     context_dict = None
+
+    users = User.objects.all()
 
     return render(request, 'rango/leaderboard.html', context_dict)
