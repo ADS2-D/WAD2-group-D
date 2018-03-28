@@ -145,47 +145,54 @@
 			{% endif %}
 			<h1 style="text-align: center">{{team.name}}</h1>
 			<p class="nMembers">Members: {{ team.users.count }}</p>
-			<p class="join-date">Created {{ team.created_at.date}}</p>
+			<p class="join-date">Created on {{ team.created_at.date}}</p>
 			<div class="points-display">
 				<div class="data">
 					<ul>
-
 					</ul>
 				</div>
 			</div>
-
-			</div>
+		</div>
+		<div class="members-of-team">
+				<p class="location">Members:</p>
+				{% if team.users %}
+					{% for user in team.users.all %}
+						<div class="profile-team-display" style="width: 100%; overflow: hidden">
+							<div class="teamname-div" style="float: left;width: 45%; colour: black;text-align: center;">
+								<a href="{% url 'user_profile' user.username %}" style="align: center;">{{ user.username }}</a>
+							</div>
+							<div class="image-div" style="float: right; width: 50%">
+								{% if user.picture %}
+								<img src="{{ user.picture.url }}" alt="{{ user.username }}" style="width:10%">
+								{% endif %}
+							</div>
+						</div>							
+					{% endfor %}
+				{% else %}
+					This team has no members!
+				{% endif %}
+			</div>		
 		</div>
 	</div>
-		<div class = "profile_right">
-			{% if request.user in team.users.all %}
-		<p class = "bottom_space">
-			Members
-		</p>
-		<p class = "bottom_space">
-
-		</p>
-		<p class = "bottom_space">
-			Log a cardio workout
-		</p>
-		<p class  = "bottom_space">
-			Log a weights workout
-		<p class = "bottom_space">
-			<form action = "{% url 'team_profile' team.team_id %}" method = "post">
-			{% csrf_token %}
-			<input class="btn btn-primary" type="submit" name="submit" value="Leave"/>
-		    </form>
-
-
-		</p>
-			{% else %}
+	<div class = "profile_right">
+		{% if request.user in team.users.all %}
+			<p class = "bottom_space">Members</p>
+			<p class = "bottom_space"></p>
+			<p class = "bottom_space">Log a cardio workout</p>
+			<p class  = "bottom_space">Log a weights workout</p>
+			<p class = "bottom_space">
+				<form action = "{% url 'team_profile' team.team_id %}" method="post">
+					{% csrf_token %}
+					<input class="btn btn-primary" type="submit" name="submit" value="Leave"/>
+		    	</form>
+			</p>
+		{% else %}
 			Join the group to enjoy full access!
 			<form action = "{% url 'team_profile' team.team_id %}" method = "post">
 				{% csrf_token %}
 				<input class="btn btn-primary" type="submit" name="submit" value="Join"/>
 			</form>
-
-			{% endif %}
+		{% endif %}
 	</div>
 
 
