@@ -43,7 +43,7 @@ class Team(models.Model):
 
 
 class WorkoutType(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, default="def")
     cardio = models.NullBooleanField()
     weights = models.NullBooleanField()
 
