@@ -38,10 +38,12 @@ class WorkoutForm(forms.ModelForm):
     reps = forms.IntegerField(initial=0)
     sets = forms.IntegerField(initial=0)
     weights = forms.IntegerField(initial=0)
+    weightpoints = forms.IntegerField(widget=forms.HiddenInput(), initial=0, required=False)
 
     distance = forms.IntegerField(initial=0)
     cadence = forms.DecimalField(max_digits=3, decimal_places=2)
+    distancepoints = forms.DecimalField(widget=forms.HiddenInput(), initial=0, required=False)
 
     class Meta:
         model = Workout
-        fields = ('workoutType', 'reps', 'sets', 'weights', 'distance', 'cadence',)
+        fields = ('workoutType', 'reps', 'sets', 'weights', 'distance', 'cadence', 'weightpoints', 'distancepoints')
