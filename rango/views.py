@@ -177,9 +177,11 @@ def team_leaderboards_index(request, team_id):
 
         context_dict['cardio'] = team.users.order_by('-distancepoints')
         context_dict['weights'] = team.users.order_by('-weightpoints')
+        context_dict['workout_types'] = WorkoutType.objects.all()
     except Team.DoesNotExist:
         context_dict['cardio'] = None
         context_dict['weights'] = None
+        context_dict['workout_types'] = None
 
     return render(request, 'rango/team_leaderboards_index.html', context_dict)
 
@@ -260,9 +262,11 @@ def leaderboards_index(request):
     try:
         context_dict['cardio_users'] = UserProfile.objects.all().order_by('-cardiopoints')
         context_dict['weights_users'] = UserProfile.objects.all().order_by('-weightpoints')
+        context_dict['workout_types'] = WorkoutType.objects.all()
     except UserProfile.DoesNotExist:
         context_dict['cardio_users'] = None
         context_dict['weights_users'] = None
+        context_dict['workout_types'] = None
 
     return render(request, 'rango/leaderboards_index.html', context_dict)
 
@@ -270,8 +274,14 @@ def leaderboards_index(request):
 def leaderboards_single(request, workout_id):
     context_dict = {}
 
-    workout_type = WorkoutType.objects.get(name=workout_id)
+    try:
+        workout_type = WorkoutType.objects.get(name=workout_id)
 
-    context_dict['workouts'] = Workout.objects.filter(workoutType=workout_type).order_by('-distancepoints')
+        if workout_type.cardio:
+            context_dict['workouts'] = Workout.objects.filter(workoutType=workout_type).order_by('-distancepoints')
+        elif workout_type.weights:
+            context_dict['workouts'] = Workout.objects.filter(workoutType=workout_type).order_by('-weightpoints')
+    except WorkoutType.DoesNotExist:
+        context_dict['workouts'] = None
 
     return render(request, 'rango/leaderboard.html', context_dict)
