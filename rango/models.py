@@ -13,7 +13,6 @@ DEFAULT_WORKOUT_ID = 1
 class UserProfile(models.Model):
     # Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
-
     # additional attributes
     # userid = models.CharField(max_length=30)
     picture = models.ImageField(upload_to='profile_images', blank=True)
@@ -32,8 +31,10 @@ class Team(models.Model):
 
     # additional attributes
     team_id = models.CharField(max_length=30)
+    created_at = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=30)
     picture = models.ImageField(upload_to='team_images', blank=True)
+
 
     def save(self, *args, **kwargs):
         self.team_id = slugify(self.name)

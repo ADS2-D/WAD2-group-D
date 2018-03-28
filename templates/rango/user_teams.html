@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	Your Teams
+
 {% endblock %}
 
 {% block style_block %}
@@ -13,6 +13,8 @@
 {% block body_block %}
 
 	{% if user_teams %}
+
+		<h3>My Teams</h3>
 		<ul>
 		{% for team in user_teams %}
 			<li><a href="{% url 'team_profile' team.team_id %}">{{ team.name }}</a></li>
@@ -20,7 +22,26 @@
 		</ul>
 		{% else %}
 			<strong>You are not a member of any teams!</strong>
+	{% endif %}
+	<div>
+		{% if all_teams %}
+		<h5>All Teams</h5>
+		<ul>{% for team in all_teams %}
+		<li><a href = "{% url 'team_profile' team.team_id %}">{{ team.name }}</a></li>
+		{% endfor %}
+		</ul>
+		{% else %}
+			<strong>There are no teams! :(</strong>
 		{% endif %}
+
+
+	</div>
+
+
+
+	<div>
+		<a href = "{% url 'add_team' %}">Create a new Team</a>
+	</div>
 
 	
 {% endblock %}

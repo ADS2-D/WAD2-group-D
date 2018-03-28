@@ -137,19 +137,38 @@ def user_teams(request, username):
     except User.DoesNotExist or Team.DoesNotExist:
         context_dict['user_teams'] = None
 
+    context_dict['all_teams'] = Team.objects.all()
+
     return render(request, 'rango/user_teams.html', context_dict)
 
-
+@login_required
 def team_profile(request, team_id):
     context_dict = {}
 
     try:
+        team = Team.objects.get(team_id=team_id)
         context_dict['team'] = Team.objects.get(team_id=team_id)
         users = Team.objects.get(team_id=team_id).users.all()
         context_dict['users'] = users
     except Team.DoesNotExist:
         context_dict['team'] = None
         context_dict['users'] = None
+
+
+    user = request.user
+
+    if request.method == "POST":
+        if user in team.users.all():
+            team.users.remove(user)
+            return render(request, 'rango/team.html', context_dict)
+        else:
+            team.users.add(user)
+            return render(request, 'rango/team.html', context_dict)
+
+
+
+
+
 
     return render(request, 'rango/team.html', context_dict)
 
@@ -189,14 +208,21 @@ def team_member_list(request, team_id):
 @login_required
 def add_team(request):
     # TODO: use forms (like with category creation in tango_with_django) and models to create new groups
+
     form = TeamForm()
+    user = request.user
+
 
     if request.method == 'POST':
         form = TeamForm(request.POST)
 
         if form.is_valid():
-            form.save(commit=True)
-            return user_redirect(request)
+            team = form.save(commit=True)
+            team.users.clear()
+            team.users.add(user)
+
+
+            return HttpResponseRedirect(reverse('home'))
         else:
             print(form.errors)
 

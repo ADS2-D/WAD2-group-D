@@ -23,11 +23,12 @@ class UserProfileForm(forms.ModelForm):
 
 class TeamForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Add the name for your new team")
-    team_id = forms.CharField(widget=forms.HiddenInput())
+    team_id = forms.CharField(widget=forms.HiddenInput(), initial = "", required=False)
+    picture = forms.ImageField(help_text = 'Upload a photo for your team', required=False)
 
     class Meta:
         model = Team
-        fields = ('name', 'team_id')
+        fields = ('name',)
 
 
 class WorkoutForm(forms.ModelForm):

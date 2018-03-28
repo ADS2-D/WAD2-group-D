@@ -7,47 +7,107 @@
 {% endblock %}
 
 {% block style_block %}
+	.profile_right {
+		overflow: hidden;
+		position: fixed;
+		padding-left: 50%;
+		padding-top: 1%;
+		padding-right: 1%;
+		font-family: arial;
+		font-size: 26px;
+}
+  .bottom_space {
+     margin-bottom: 4cm;
+  }
+
+	.profile_left {
+		overflow: hidden;
+		position: fixed;
+		padding-left: 1%;
+		padding-top: 1%;
+		padding-right: 1%;
+		background-colour: #000;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		max-width: 400px;
+		margin: auto;
+		font-family: arial;
+	}
+	.nMembers {
+		colour: grey;
+		font-size: 18px;
+		text-align: center;
+
+	}
+
+	.join-date {
+		colour: black;
+		text-align: center;
+
+	}
+
+	.profile_left profile_card {
+
+	}
+	.profile_left title, .join-date {
+		color: grey;
+		font-size: 18px;
+	}
+	.data {
+  		margin-top: .6em;
+  		color: #81878b;
+	}
+  	.data li {
+    	width: 32%;
+    	text-align: center;
+    	display: inline-block;
+    	font-size: 1.5em;
+    	font-family: arial;
+    	border-right: solid 1px #bdc3c7;
+	}
+    .data li:last-child {
+    	border: none;
+	}
+    .data li span {
+    	display: block;
+    	text-transform: uppercase;
+    	font-family: arial;
+    	font-size: .5em;
+     	margin-top: .6em;
+      	font-weight:700;
+    }
+
 
 {% endblock %}
 
 {% block body_block %}
 	<div class="profile_left">
 		<div class="profile_card">
-			<img src="{{ user_profile.picture.url }}" alt="{{ user.username }}" style="width:100%">
+			{% if team.picture %}
+			<img src="{{ team.picture.url }}" alt="{{ team.name }}" style="width:100%">
+			{% endif %}
 			<h1 style="text-align: center">{{team.name}}</h1>
-			<p class="location">Location, Goes, Here</p>
-			<p class="join-date">Created {{ team.date_created|date:"d F Y" }}</p>
+			<p class="nMembers">Members: {{ team.users.count }}</p>
+			<p class="join-date">Created {{ team.created_at.date}}</p>
 			<div class="points-display">
 				<div class="data">
 					<ul>
-					<li>
-						235235
-						<span>DP</span>
-					</li>
-					<li>
-						2342266
-						<span>WP</span>
-					</li>
+						{% if request.user in team.users.all %}
+						<form action = "" method = "post">
+							{% csrf_token %}
+        				<input class="btn btn-primary" type="submit" name="submit" value="Leave"/>
+    					</form>
+
+						{% else %}
+						<form action = "" method = "post">
+							{% csrf_token %}
+        				<input class="btn btn-primary" type="submit" name="submit" value="Join"/>
+    					</form>
+
+						{% endif %}
 					</ul>
 				</div>
 			</div>
-			<div class="user-stats-display">
-				<div class="data">
-				<ul>
-					<li>
-						{{user.followers}}
-						<span>Followers</span>
-					</li>
-					<li>
-						{{user.following}}
-						<span>Following</span>
-					</li>
-					<li>
-						{{user.posts}}
-						<span>Posts</span>
-					</li>		
-				</ul>	
-				</div>
+
 			</div>
 		</div>		
 	</div>

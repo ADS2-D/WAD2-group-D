@@ -7,6 +7,18 @@
 {% endblock %}
 
 {% block style_block %}
+	.profile_right {
+		overflow: hidden;
+		position: fixed;
+		padding-left: 50%;
+		padding-top: 1%;
+		padding-right: 1%;
+		font-family: arial;
+		font-size: 26px;
+}
+  .bottom_space {
+     margin-bottom: 4cm;
+  }
 
 	.profile_left {
 		overflow: hidden;
@@ -109,4 +121,17 @@
 			</div>
 		</div>		
 	</div>
+
+	<div class = "profile_right">
+		<p class = "bottom_space">
+			Workouts
+		</p>
+		<p class = "bottom_space">
+			Followers
+		</p>
+		<p class = "bottom_space">
+			Following
+		</p>
+	</div>
+
 {% endblock %}
