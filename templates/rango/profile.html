@@ -112,16 +112,12 @@
 			<div class="user-stats-display">
 				<div class="data">
 				<ul>
-					<li style="width: 25%;">
-						{{user.followers.count}}
-						<span>Followers</span>
+					<li style="width: 45%;" title="Team Membership">
+						{{ user_profile.teams.count }}
+						<span>Teams</span>
 					</li>
-					<li style="width: 25%;">
-						{{user.following.count}}
-						<span>Following</span>
-					</li>
-					<li style="width: 25%;">
-						{{user.workouts.count}}
+					<li style="width: 45%;" title="Workouts Posted">
+						{{ user_profile.workouts.count }}
 						<span>Posts</span>
 					</li>		
 				</ul>	
@@ -155,7 +151,7 @@
 		<div class="workouts-display" align="right">
 		{% if workouts %}
 			{% for workout in workouts %}
-				<div class="workout-module">		
+				<div class="workout-module">	
 				</div>						
 			{% endfor %}		
 		{% else %}
