@@ -14,5 +14,6 @@ venv/
 ENV/
 
 db.sqlite3
+rango/migrations/
 
 .idea/
