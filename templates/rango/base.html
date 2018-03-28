@@ -99,7 +99,7 @@
 			<a href="{% url 'about' %}">About</a>
   			<a href="{% url 'user_profile' user.username %}">Profile</a>
   			<a href="{% url 'user_teams' user.username %}">Teams</a> 
-  			<a href="{% url 'team_leaderboards_index' user.username %}">Leaderboards</a>
+  			<a href="{% url 'leaderboards_index' %}">Leaderboards</a>
 		<div class="login-container">
 			<a href="{% url 'user_profile' user.username %}" style="color: #4CAF50">{{ user.username }}</a>
 			<a href="{% url 'user_logout' %}">Logout</a>
