@@ -156,14 +156,14 @@
 		<div class="members-of-team">
 				<p class="location">Members:</p>
 				{% if team.users %}
-					{% for user in team.users.all %}
+					{% for teamuser in team.users.all %}
 						<div class="profile-team-display" style="width: 100%; overflow: hidden">
 							<div class="teamname-div" style="float: left;width: 45%; colour: black;text-align: center;">
-								<a href="{% url 'user_profile' user.username %}" style="align: center;">{{ user.username }}</a>
+								<a href="{% url 'user_profile' teamuser.username %}" style="align: center;">{{ teamuser.username }}</a>
 							</div>
 							<div class="image-div" style="float: right; width: 50%">
-								{% if user.picture %}
-								<img src="{{ user.picture.url }}" alt="{{ user.username }}" style="width:10%">
+								{% if teamuser.picture %}
+								<img src="{{ teamuser.picture.url }}" alt="{{ teamuser.username }}" style="width:10%">
 								{% endif %}
 							</div>
 						</div>							

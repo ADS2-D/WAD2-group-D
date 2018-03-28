@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	{{ user.first_name }}'s Profile
+	{{ user_profile.user.username }}'s Profile
 {% endblock %}
 
 {% block style_block %}
@@ -89,12 +89,12 @@
 			<div class="profile_card">
 			{% if user_profile.picture %}
 			<div style="display: flex; justify-content: center">
-			<img src="{{ user_profile.picture.url }}" alt="{{ user.username }}" style="width:60%; height: 60%">
+			<img src="{{ user_profile.picture.url }}" alt="{{ user_profile.username }}" style="width:60%; height: 60%">
 			</div>
 			{% endif %}
-			<h1 style="text-align: center">{{ user.username }}</h1>
+			<h1 style="text-align: center">{{ user_profile.user.username }}</h1>
 			<p class="location">{{user_profile.location}}</p>
-			<p class="join-date">Member since {{ user.date_joined|date:"d F Y" }}</p>
+			<p class="join-date">Member since {{ user_profile.user.date_joined|date:"d F Y" }}</p>
 				<div class="points-display">
 					<div class="data">
 					<ul>
@@ -113,11 +113,11 @@
 				<div class="data">
 				<ul>
 					<li style="width: 45%;" title="Team Membership">
-						{{ user_profile.teams.count }}
+						{{ team_number }}
 						<span>Teams</span>
 					</li>
 					<li style="width: 45%;" title="Workouts Posted">
-						{{ user_profile.workouts.count }}
+						{{ workouts.count }}
 						<span>Posts</span>
 					</li>		
 				</ul>	
@@ -142,7 +142,11 @@
 					{% endfor %}
 				
 				{% else %}
-					This user isn't a member of any teams!
+					{% if own_profile %}
+						You are not a member of any teams!
+					{% else %}
+						This user isn't a member of any teams!
+					{% endif %}
 				{% endif %}
 			</div>
 		</div>	
