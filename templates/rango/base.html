@@ -94,14 +94,14 @@
 <body>
 	{% if user.is_authenticated %}
 	<div class="topnav" id="baseheader">
-  		<a class="active" href="#home">Timeline</a>
+  		<a class="active" >WWWorkout</a>
 		    <a href="{% url 'home' %}">Home</a>
 			<a href="{% url 'about' %}">About</a>
   			<a href="{% url 'user_profile' user.username %}">Profile</a>
   			<a href="{% url 'user_teams' user.username %}">Teams</a> 
   			<a href="{% url 'team_leaderboards_index' user.username %}">Leaderboards</a>
 		<div class="login-container">
-			<a href="{% url 'user_profile' user.username %}" style="color: #4CAF50">{{ user.first_name }}</a>
+			<a href="{% url 'user_profile' user.username %}" style="color: #4CAF50">{{ user.username }}</a>
 			<a href="{% url 'user_logout' %}">Logout</a>
 			
 		</div>

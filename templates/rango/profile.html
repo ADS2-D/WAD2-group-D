@@ -130,7 +130,7 @@
 					{% for team in teams %}
 						<div class="profile-team-display" style="width: 100%; overflow: hidden">
 							<div class="teamname-div" style="float: left;width: 45%; colour: black;text-align: center;">
-								<a href="{% url 'team_profile' team.team_id %}" style="align: center;">{{ team.name }}</a>
+								<a href="{% url 'team_profile' team.team_id %}" style="align: center; font-size: 18px;">{{ team.name }}</a>
 							</div>
 							<div class="image-div" style="float: right; width: 50%">
 								{% if team.picture %}
@@ -155,7 +155,12 @@
 		<div class="workouts-display" align="right">
 		{% if workouts %}
 			{% for workout in workouts %}
-				<div class="workout-module">	
+				<div class="workout-module" style="width: 100%">
+					<div class="workout-title" style="width: 100%; text-align: center">
+						{{ workout.workoutType.name }}
+						
+					
+					</div>
 				</div>						
 			{% endfor %}		
 		{% else %}
