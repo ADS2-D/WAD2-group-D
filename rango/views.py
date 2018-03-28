@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from rango.forms import UserForm, UserProfileForm, TeamForm, WorkoutForm
-from rango.models import User, UserProfile, Workout, Team
+from rango.models import User, UserProfile, Workout, Team, WorkoutType
 
 
 def home(request):
@@ -92,7 +92,6 @@ def user_logout(request):
     return HttpResponseRedirect(reverse('home'))
 
 
-# TODO: implement database access for context dictionaries
 def user_profile(request, username):
     context_dict = {}
 
@@ -106,10 +105,12 @@ def user_profile(request, username):
         context_dict['workouts'] = Workout.objects.filter(user=profile_user).order_by('-date').reverse()
         context_dict['user_profile'] = UserProfile.objects.get(user=profile_user)
         context_dict['teams'] = Team.objects.filter(users=profile_user)
+        context_dict['team_number'] = len(context_dict['teams'])
     except User.DoesNotExist:
         context_dict['workouts'] = None
         context_dict['user_profile'] = None
-        context_dict['team_number'] = None
+        context_dict['team_number'] = 0
+        context_dict['teams'] = None
 
     return render(request, 'rango/profile.html', context_dict)
 
@@ -174,8 +175,8 @@ def team_leaderboards_index(request, team_id):
     try:
         team = Team.objects.get(team_id=team_id)
 
-        context_dict['cardio'] = team.user.order_by('-distancepoints')
-        context_dict['weights'] = team.user.order_by('-weightpoints')
+        context_dict['cardio'] = team.users.order_by('-distancepoints')
+        context_dict['weights'] = team.users.order_by('-weightpoints')
     except Team.DoesNotExist:
         context_dict['cardio'] = None
         context_dict['weights'] = None
@@ -267,8 +268,10 @@ def leaderboards_index(request):
 
 
 def leaderboards_single(request, workout_id):
-    context_dict = None
+    context_dict = {}
 
-    users = User.objects.all()
+    workout_type = WorkoutType.objects.get(name=workout_id)
+
+    context_dict['workouts'] = Workout.objects.filter(workoutType=workout_type).order_by('-distancepoints')
 
     return render(request, 'rango/leaderboard.html', context_dict)
