@@ -18,12 +18,9 @@ def about(request):
 
 @login_required
 def user_redirect(request):
-    # TODO: redirect to user's profile at /user/<username>
     if request.user.is_authenticated():
         username = request.user.username
-        # return HttpResponseRedirect(reverse('home'))
         return user_profile(request, username)
-        # redirect here
     else:
         return HttpResponseRedirect(reverse('home'))
 
@@ -38,7 +35,6 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                # TODO: redirect user to their own profile
                 return HttpResponseRedirect(reverse('home'))
             else:
                 return HttpResponse('Your WWWorkout account has been disabled.')
@@ -193,7 +189,7 @@ def team_leaderboards_workout(request, team_id, workout_id):
 
 
 def team_member_list(request, team_id):
-    context_dict = None
+    context_dict = {}
 
     try:
         team = Team.objects.get(team_id=team_id)
