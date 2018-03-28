@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from rango.models import UserProfile, Team, Workout
+from rango.models import UserProfile, Team, Workout, WorkoutType
 
 
 class UserForm(forms.ModelForm):
@@ -23,8 +23,8 @@ class UserProfileForm(forms.ModelForm):
 
 class TeamForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Add the name for your new team")
-    team_id = forms.CharField(widget=forms.HiddenInput(), initial = "", required=False)
-    picture = forms.ImageField(help_text = 'Upload a photo for your team', required=False)
+    team_id = forms.CharField(widget=forms.HiddenInput(), initial="", required=False)
+    picture = forms.ImageField(help_text='Upload a photo for your team', required=False)
 
     class Meta:
         model = Team
@@ -32,6 +32,16 @@ class TeamForm(forms.ModelForm):
 
 
 class WorkoutForm(forms.ModelForm):
+    workoutType = forms.ModelChoiceField(queryset=WorkoutType.objects.all())
+    picture = forms.ImageField(upload_to='workout_images', blank=True)
+
+    reps = forms.IntegerField(default=0)
+    sets = forms.IntegerField(default=0)
+    weights = forms.IntegerField(default=0)
+
+    distance = forms.IntegerField(default=0)
+    cadence = forms.DecimalField(max_digits=3, decimal_places=2)
+
     class Meta:
         model = Workout
-        fields = ('workout_id', 'reps', 'sets', 'weights', 'distance', 'cadence',)
+        fields = ('workoutType', 'reps', 'sets', 'weights', 'distance', 'cadence',)
