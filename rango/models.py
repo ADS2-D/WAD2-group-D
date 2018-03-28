@@ -35,7 +35,6 @@ class Team(models.Model):
     name = models.CharField(max_length=30)
     picture = models.ImageField(upload_to='team_images', blank=True)
 
-
     def save(self, *args, **kwargs):
         self.team_id = slugify(self.name)
         super(Team, self).save(*args, **kwargs)
@@ -67,7 +66,7 @@ class Workout(models.Model):
 
     distance = models.IntegerField(default=0)
     cadence = models.DecimalField(max_digits=3, decimal_places=2)
-    cardio_points = models.IntegerField
+    distance_points = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __str__(self):
         return self.workout_id
