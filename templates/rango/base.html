@@ -3,14 +3,12 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-	
+    <meta charset="UTF-8">	
 	<title>
     {% block title_block %}
 			WWWorkout -
 	{% endblock %}
 	</title>
-	
 	<style>
 		body, html {
 			height: 100%;
@@ -19,8 +17,11 @@
 		}
 		
 		.topnav {
+			position: relative;
+			top: 0;
+			width: 100%;
   			overflow: hidden;
-  			background-color: #333;
+  			background-color: #333;	
 		}
 		
 		.topnav a {
@@ -90,12 +91,9 @@
 		{% endblock %}
 	</style>
 </head>
-
-	
-
 <body>
 	{% if user.is_authenticated %}
-	<div class="topnav">
+	<div class="topnav" id="baseheader">
   		<a class="active" href="#home">Timeline</a>
 		    <a href="{% url 'home' %}">Home</a>
 			<a href="{% url 'about' %}">About</a>
@@ -103,13 +101,13 @@
   			<a href="{% url 'user_teams' user.username %}">Teams</a> 
   			<a href="{% url 'team_leaderboards_index' user.username %}">Leaderboards</a>
 		<div class="login-container">
-			<a href="{% url 'user_profile' user.username %}">{{ user.first_name }}</a>
+			<a href="{% url 'user_profile' user.username %}" style="color: #4CAF50">{{ user.first_name }}</a>
 			<a href="{% url 'user_logout' %}">Logout</a>
-			<img src="{{MEDIA_URL}}/user_profile_images/{{user.username}}_profile_image.jpg" alt="profile image" width="28" height="28">
+			
 		</div>
 	</div>
 	{% else %}
-	<div class="topnav">
+	<div class="topnav" id="baseheader">
 		<a href="{% url 'home' %}">Home</a>
 		<a href="{% url 'about' %}">About</a>
 		
@@ -123,5 +121,6 @@
 	{% block body_block %}
 	
 	{% endblock %} 
+
 </body>
 </html>

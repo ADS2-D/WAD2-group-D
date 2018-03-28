@@ -77,6 +77,64 @@
     }
 
 
+	.profile_left {
+		overflow: hidden;
+		position: fixed;
+		height: 100%;
+		width: 30%;
+		padding-left: 1%;
+		padding-top: 1%;
+		padding-right: 1%;
+		background-colour: #000;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		max-width: 400px;
+		margin: auto;
+		font-family: arial;
+	}
+	.location {
+		colour: grey;
+		font-size: 18px;
+		text-align: center;
+
+	}
+
+	.join-date {
+		colour: black;
+		text-align: center;
+	
+	}	
+
+	.profile_left profile_card {
+		
+	}
+	.profile_left title, .join-date {
+		color: grey;
+		font-size: 18px;
+	}
+	.data {
+  		margin-top: .6em;
+  		color: #81878b;
+	}
+  	.data li {
+    	width: 32%;
+    	text-align: center;
+    	display: inline-block;
+    	font-size: 1.5em;
+    	font-family: arial;
+    	border-right: solid 1px #bdc3c7;
+	}
+    .data li:last-child {
+    	border: none;
+	}
+    .data li span {
+    	display: block;
+    	text-transform: uppercase;
+    	font-family: arial;
+    	font-size: .5em;
+     	margin-top: .6em;
+      	font-weight:700;
+    }
+
 {% endblock %}
 
 {% block body_block %}
@@ -91,39 +149,44 @@
 			<div class="points-display">
 				<div class="data">
 					<ul>
-						{% if request.user in team.users.all %}
-						<form action = "" method = "post">
-							{% csrf_token %}
-        				<input class="btn btn-primary" type="submit" name="submit" value="Leave"/>
-    					</form>
 
-						{% else %}
-						<form action = "" method = "post">
-							{% csrf_token %}
-        				<input class="btn btn-primary" type="submit" name="submit" value="Join"/>
-    					</form>
-
-						{% endif %}
 					</ul>
 				</div>
 			</div>
 
 			</div>
-		</div>		
+		</div>
 	</div>
-	<div class="member-list">
-		
-		{% if users %}
-		
-		{% for user in users %}
-		<li><a href="{% url 'user_profile' user.username %}">{{ user.name }}</a></li>
-		
-		{% endfor %}
-		{% else %}
-		This team has no members!
-		{% endif %}
+		<div class = "profile_right">
+			{% if request.user in team.users.all %}
+		<p class = "bottom_space">
+			Members
+		</p>
+		<p class = "bottom_space">
+
+		</p>
+		<p class = "bottom_space">
+			Log a cardio workout
+		</p>
+		<p class  = "bottom_space">
+			Log a weights workout
+		<p class = "bottom_space">
+			<form action = "{% url 'team_profile' team.team_id %}" method = "post">
+			{% csrf_token %}
+			<input class="btn btn-primary" type="submit" name="submit" value="Leave"/>
+		    </form>
 
 
+		</p>
+			{% else %}
+			Join the group to enjoy full access!
+			<form action = "{% url 'team_profile' team.team_id %}" method = "post">
+				{% csrf_token %}
+				<input class="btn btn-primary" type="submit" name="submit" value="Join"/>
+			</form>
+
+			{% endif %}
 	</div>
+
 
 {% endblock %}
